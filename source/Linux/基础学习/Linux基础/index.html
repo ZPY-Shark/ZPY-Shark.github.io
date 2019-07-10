@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Shark&#39;s Blog">
 <meta property="og:description" content="Linux基础学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-09T14:39:05.111Z">
+<meta property="og:updated_time" content="2019-07-10T14:38:56.909Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux基础">
 <meta name="twitter:description" content="Linux基础学习。">
@@ -547,7 +547,55 @@
 </ul>
 </li>
 </ul>
-<h4 id="可视模式"><a href="#可视模式" class="headerlink" title="可视模式"></a>可视模式</h4>
+<h4 id="可视模式"><a href="#可视模式" class="headerlink" title="可视模式"></a>可视模式</h4><h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><hr>
+<h3 id="用户管理命令"><a href="#用户管理命令" class="headerlink" title="用户管理命令"></a>用户管理命令</h3><ul>
+<li><p>useradd - 新建用户(仅root用户有权限创建)</p>
+<ul>
+<li><p>/etc/passwd</p>
+</li>
+<li><p>/etc/shadow</p>
+</li>
+<li><p>id</p>
+</li>
+</ul>
+</li>
+<li><p>userdel - 删除用户</p>
+<ul>
+<li>加-r才能删除用户的家目录</li>
+</ul>
+</li>
+<li><p>passwd - 修改用户密码</p>
+</li>
+<li><p>usermod - 修改用户属性</p>
+<ul>
+<li>-g 加入用户组</li>
+</ul>
+</li>
+<li><p>chage - 修改用户属性</p>
+</li>
+</ul>
+<h3 id="组管理命令"><a href="#组管理命令" class="headerlink" title="组管理命令"></a>组管理命令</h3><ul>
+<li>groupadd - 新建用户组</li>
+<li>groupdel - 删除用户组</li>
+</ul>
+<h3 id="用户切换"><a href="#用户切换" class="headerlink" title="用户切换"></a>用户切换</h3><ul>
+<li><p>su - ‘username’ ： 做临时的用户替换，’-‘表示切换用户的同时将运行环境也切换为username的运行环境</p>
+</li>
+<li><p>su 切换用户</p>
+</li>
+<li><p>sudo 以其他用户身份执行命令</p>
+<ul>
+<li>visudo - 设置需要使用sudo的用户（组）</li>
+<li>也可以直接编辑 /etc/sudoers 文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="用户（组）配置文件"><a href="#用户（组）配置文件" class="headerlink" title="用户（组）配置文件"></a>用户（组）配置文件</h3><ul>
+<li>/etc/passwd文件</li>
+<li>/etc/shadow文件 - 保存用户和用户密码相关信息</li>
+<li>/etc/group文件  - 保存用户组相关信息</li>
+</ul>
+
       
     </div>
     
@@ -719,7 +767,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端"><span class="nav-number">1.</span> <span class="nav-text">终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见目录介绍"><span class="nav-number">2.</span> <span class="nav-text">常见目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">3.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">3.1.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help"><span class="nav-number">3.2.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info"><span class="nav-number">3.3.</span> <span class="nav-text">info</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">4.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件查看"><span class="nav-number">4.1.</span> <span class="nav-text">文件查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录的查看与删除"><span class="nav-number">4.2.</span> <span class="nav-text">目录的查看与删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和移动"><span class="nav-number">4.3.</span> <span class="nav-text">复制和移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本查看命令"><span class="nav-number">4.4.</span> <span class="nav-text">文本查看命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包、压缩、解压缩"><span class="nav-number">4.5.</span> <span class="nav-text">打包、压缩、解压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VI编辑器"><span class="nav-number">4.6.</span> <span class="nav-text">VI编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正常模式"><span class="nav-number">4.6.1.</span> <span class="nav-text">正常模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">4.6.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">4.6.3.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视模式"><span class="nav-number">4.6.4.</span> <span class="nav-text">可视模式</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端"><span class="nav-number">1.</span> <span class="nav-text">终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见目录介绍"><span class="nav-number">2.</span> <span class="nav-text">常见目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">3.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">3.1.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help"><span class="nav-number">3.2.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info"><span class="nav-number">3.3.</span> <span class="nav-text">info</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">4.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件查看"><span class="nav-number">4.1.</span> <span class="nav-text">文件查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录的查看与删除"><span class="nav-number">4.2.</span> <span class="nav-text">目录的查看与删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和移动"><span class="nav-number">4.3.</span> <span class="nav-text">复制和移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本查看命令"><span class="nav-number">4.4.</span> <span class="nav-text">文本查看命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包、压缩、解压缩"><span class="nav-number">4.5.</span> <span class="nav-text">打包、压缩、解压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VI编辑器"><span class="nav-number">4.6.</span> <span class="nav-text">VI编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正常模式"><span class="nav-number">4.6.1.</span> <span class="nav-text">正常模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">4.6.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">4.6.3.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视模式"><span class="nav-number">4.6.4.</span> <span class="nav-text">可视模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理命令"><span class="nav-number">5.1.</span> <span class="nav-text">用户管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组管理命令"><span class="nav-number">5.2.</span> <span class="nav-text">组管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户切换"><span class="nav-number">5.3.</span> <span class="nav-text">用户切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户（组）配置文件"><span class="nav-number">5.4.</span> <span class="nav-text">用户（组）配置文件</span></a></li></ol></li></ol></div>
             
 
           </div>

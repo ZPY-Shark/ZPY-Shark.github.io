@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Shark&#39;s Blog">
 <meta property="og:description" content="Linux基础学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-14T02:44:22.805Z">
+<meta property="og:updated_time" content="2019-07-15T12:24:47.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux基础">
 <meta name="twitter:description" content="Linux基础学习。">
@@ -682,6 +682,81 @@
 <blockquote>
 <p>注意：权限限制是限制非root用户的，root用户不受限制</p>
 </blockquote>
+<p>##网络管理</p>
+<h3 id="网络状态查看"><a href="#网络状态查看" class="headerlink" title="网络状态查看"></a>网络状态查看</h3><ul>
+<li><p>net-tools</p>
+<ul>
+<li><p>ifconfig</p>
+<p>eth0:第一块网卡(网络接口)<br>第一个网络接口可能叫一下几个名字<br>eno1 板载网卡<br>ens33 PCI-E网卡<br>enp0s3 无法获取物理信息的PCI-E网卡<br>CentOS7使用了一致性网络设备命令，以上都不匹配则使用eth0</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>route</li>
+<li>netstat</li>
+</ul>
+<ul>
+<li>iproute2<ul>
+<li>ip</li>
+<li>ss</li>
+</ul>
+</li>
+</ul>
+<h3 id="网络接口命名修改"><a href="#网络接口命名修改" class="headerlink" title="网络接口命名修改"></a>网络接口命名修改</h3><ul>
+<li>网卡命名规则受biosdevname和net.ifnames两个参数影响</li>
+<li>编辑/etc/default/grub文件，增加biosdevname=0 net.ifnames=0</li>
+<li>更新grub<ul>
+<li>grub2-mkconfig -o /boot/grub2/grub.cfg</li>
+</ul>
+</li>
+<li>重启<ul>
+<li>reboot</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="center">biosdevname</th>
+<th align="center">et.ifnames</th>
+<th align="center">网卡名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>默认</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">ens33</td>
+</tr>
+<tr>
+<td>组合1</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">em1</td>
+</tr>
+<tr>
+<td>组合2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">eth0</td>
+</tr>
+</tbody></table>
+<h3 id="查看wang’l情况"><a href="#查看wang’l情况" class="headerlink" title="查看wang’l情况"></a>查看wang’l情况</h3><p>  查看网卡物理连接情况<br>   mii-tool eth0</p>
+<h3 id="查看网关"><a href="#查看网关" class="headerlink" title="查看网关"></a>查看网关</h3><ul>
+<li>route -n<br>使用-n参数不解析主机名</li>
+</ul>
+<h3 id="网络配置命令"><a href="#网络配置命令" class="headerlink" title="网络配置命令"></a>网络配置命令</h3><ul>
+<li>ifconfig &lt;接口&gt; &lt;IP地址&gt; &lt;netmask 子网掩码&gt; 设置网卡配置</li>
+<li>ifup &lt;接口&gt; 启动网卡（ifconfig &lt;接口&gt; up）</li>
+<li>ifdown &lt;接口&gt; 关闭网卡（ifconfig &lt;接口&gt; down）</li>
+</ul>
+<h3 id="网关配置命令"><a href="#网关配置命令" class="headerlink" title="网关配置命令"></a>网关配置命令</h3><ul>
+<li>route add default gw &lt;网关ip&gt;</li>
+<li>route add -host &lt;指定ip&gt; gw &lt;网关ip&gt;</li>
+<li>route add -net &lt;指定网段&gt; netmask &lt;子网掩码&gt; gw &lt;网关ip&gt;</li>
+</ul>
 
       
     </div>
@@ -854,7 +929,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端"><span class="nav-number">1.</span> <span class="nav-text">终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见目录介绍"><span class="nav-number">2.</span> <span class="nav-text">常见目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">3.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">3.1.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help"><span class="nav-number">3.2.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info"><span class="nav-number">3.3.</span> <span class="nav-text">info</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">4.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件查看"><span class="nav-number">4.1.</span> <span class="nav-text">文件查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录的查看与删除"><span class="nav-number">4.2.</span> <span class="nav-text">目录的查看与删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和移动"><span class="nav-number">4.3.</span> <span class="nav-text">复制和移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本查看命令"><span class="nav-number">4.4.</span> <span class="nav-text">文本查看命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包、压缩、解压缩"><span class="nav-number">4.5.</span> <span class="nav-text">打包、压缩、解压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VI编辑器"><span class="nav-number">4.6.</span> <span class="nav-text">VI编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正常模式"><span class="nav-number">4.6.1.</span> <span class="nav-text">正常模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">4.6.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">4.6.3.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视模式"><span class="nav-number">4.6.4.</span> <span class="nav-text">可视模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理命令"><span class="nav-number">5.1.</span> <span class="nav-text">用户管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组管理命令"><span class="nav-number">5.2.</span> <span class="nav-text">组管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户切换"><span class="nav-number">5.3.</span> <span class="nav-text">用户切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户（组）配置文件"><span class="nav-number">5.4.</span> <span class="nav-text">用户（组）配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件权限"><span class="nav-number">5.5.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件权限"><span class="nav-number">5.6.</span> <span class="nav-text">修改文件权限</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端"><span class="nav-number">1.</span> <span class="nav-text">终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见目录介绍"><span class="nav-number">2.</span> <span class="nav-text">常见目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">3.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">3.1.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help"><span class="nav-number">3.2.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info"><span class="nav-number">3.3.</span> <span class="nav-text">info</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">4.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件查看"><span class="nav-number">4.1.</span> <span class="nav-text">文件查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录的查看与删除"><span class="nav-number">4.2.</span> <span class="nav-text">目录的查看与删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和移动"><span class="nav-number">4.3.</span> <span class="nav-text">复制和移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本查看命令"><span class="nav-number">4.4.</span> <span class="nav-text">文本查看命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包、压缩、解压缩"><span class="nav-number">4.5.</span> <span class="nav-text">打包、压缩、解压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VI编辑器"><span class="nav-number">4.6.</span> <span class="nav-text">VI编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正常模式"><span class="nav-number">4.6.1.</span> <span class="nav-text">正常模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">4.6.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">4.6.3.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视模式"><span class="nav-number">4.6.4.</span> <span class="nav-text">可视模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理命令"><span class="nav-number">5.1.</span> <span class="nav-text">用户管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组管理命令"><span class="nav-number">5.2.</span> <span class="nav-text">组管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户切换"><span class="nav-number">5.3.</span> <span class="nav-text">用户切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户（组）配置文件"><span class="nav-number">5.4.</span> <span class="nav-text">用户（组）配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件权限"><span class="nav-number">5.5.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件权限"><span class="nav-number">5.6.</span> <span class="nav-text">修改文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络状态查看"><span class="nav-number">5.7.</span> <span class="nav-text">网络状态查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络接口命名修改"><span class="nav-number">5.8.</span> <span class="nav-text">网络接口命名修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看wang’l情况"><span class="nav-number">5.9.</span> <span class="nav-text">查看wang’l情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网关"><span class="nav-number">5.10.</span> <span class="nav-text">查看网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络配置命令"><span class="nav-number">5.11.</span> <span class="nav-text">网络配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关配置命令"><span class="nav-number">5.12.</span> <span class="nav-text">网关配置命令</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Shark&#39;s Blog">
 <meta property="og:description" content="数据结构与算法的基础知识，复杂度概念及计算。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T14:14:28.171Z">
+<meta property="og:updated_time" content="2019-07-16T14:18:51.082Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法基础-复杂度">
 <meta name="twitter:description" content="数据结构与算法的基础知识，复杂度概念及计算。">
@@ -338,7 +338,7 @@
 </ul>
 <p><strong>大O时间复杂度实际并不具体表示代码真正的的执行时间，而是表示代码时间随数据规模增长的变化趋势。所以，也叫渐进时间复杂度，简称时间复杂度。</strong></p>
 <h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><hr>
-<p>当n很大时，公式中的<em>低阶、常量、系数</em>三部分并不左右增长趋势，所以都可以忽略，只需要记录一个最大量级即可。</p>
+<p>当n很大时，公式中的 <strong><em>低阶、常量、系数</em></strong> 三部分并不左右增长趋势，所以都可以忽略，只需要记录一个最大量级即可。</p>
 <ul>
 <li>T(n)=O(2n+2) 等价于 T(n)=O(n) </li>
 <li>T(n)=O(2n<sup>2</sup>+2n+3) 等价于 T(n)=O(n<sup>2</sup>)</li>
@@ -373,17 +373,14 @@
 <blockquote>
 <p>O(nlogn)也是一种常见的时间复杂度，比如归并排序、快速排序</p>
 </blockquote>
-<h3 id="O-m-n-、O-m-n"><a href="#O-m-n-、O-m-n" class="headerlink" title="O(m+n)、O(m*n)"></a>O(m+n)、O(m*n)</h3><ul>
-<li><p>代码的复杂度由两个数据的规模决定</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> sum1 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(; i &lt; n; i++)&#123;</span><br><span class="line">        sum1 += i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> sum2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(; j &lt; m; j++)&#123;</span><br><span class="line">        sum2 += j;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum1+sum2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="O-m-n-、O-m-n"><a href="#O-m-n-、O-m-n" class="headerlink" title="O(m+n)、O(m*n)"></a>O(m+n)、O(m*n)</h3><p> 代码的复杂度由两个数据的规模决定<br> <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> sum1 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(; i &lt; n; i++)&#123;</span><br><span class="line">        sum1 += i;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> sum2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(; j &lt; m; j++)&#123;</span><br><span class="line">        sum2 += j;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum1+sum2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>由于无法事先评估m和n的量级哪个大，所以不能简单的利用加法原则，因此复杂度为O(m+n)  </p>
 </blockquote>
 <blockquote>
 <p>但是乘法原则依然有效，O(m)<em>O(n)=O(m</em>n)</p>
 </blockquote>
-<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2></li>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><ul>
 <li><p>时间复杂度，全程为渐进时间复杂度，表示算法的执行时间与数据规模之间的增长关系</p>
 </li>
 <li><p>空间复杂度，全程为渐进空间复杂度，表示算法的存储空间与数据规模之间的增长关系</p>
@@ -394,6 +391,68 @@
 </blockquote>
 </li>
 </ul>
+<h2 id="最好、最坏情况时间复杂度"><a href="#最好、最坏情况时间复杂度" class="headerlink" title="最好、最坏情况时间复杂度"></a>最好、最坏情况时间复杂度</h2><p> 在一个长度为n的无序数组中，查找变量x的位置<br> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//方法一</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> n, <span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> pos = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(;i&lt;n;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i] == x) &#123;</span><br><span class="line">            pos = i;</span><br><span class="line">        &#125;         </span><br><span class="line">    &#125;     </span><br><span class="line">    <span class="keyword">return</span> pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>上述代码时间复杂度为O(n)</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法二</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] a, <span class="keyword">int</span> n, <span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> pos = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(;i&lt;n;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i] == x) &#123;</span><br><span class="line">            pos = i;</span><br><span class="line">            <span class="keyword">break</span>; <span class="comment">// 提前跳出</span></span><br><span class="line">        &#125;         </span><br><span class="line">    &#125;     </span><br><span class="line">    <span class="keyword">return</span> pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在最好情况下，复杂度为O(1)，最坏情况下，复杂度为O(n)</p>
+</blockquote>
+<p><strong>为了表示代码在不同情况下的不同时间复杂度，需要引入三个概念：</strong></p>
+<ul>
+<li>最好情况时间复杂度（最理想的情况下，执行这段代码的复杂度）</li>
+<li>最坏情况时间复杂度（最糟糕的情况下，执行这段代码的复杂度）</li>
+<li>平均情况时间复杂度</li>
+</ul>
+<h2 id="平均时间复杂度分析"><a href="#平均时间复杂度分析" class="headerlink" title="平均时间复杂度分析"></a>平均时间复杂度分析</h2><ol>
+<li><p>以上述代码为例，要查找的变量x在数组中的位置有n+1种情况，即n种在数组中、1种不在数组中。  </p>
+</li>
+<li><p>把每种情况下代码执行次数相加，然后再除以总情况数，就可以得到需要执行代码次数的平均值，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> （1+2+3+...+n+n）/(n+1) </span><br><span class="line">= (n*(n+3))/2(n+1)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>大O分析法忽略所有系数、低阶、常量，得到平均时间复杂度为O(n)</p>
+</li>
+</ol>
+<blockquote>
+<p>但是，这里的n+1种情况，出现的概率并不一样</p>
+</blockquote>
+<ol>
+<li><p><em>假设</em> 变量x在数组a内 和 不在数组内的概率 均为 1/2  </p>
+</li>
+<li><p>当变量在数组内时，x 的位置在0~n-1的任意位置的概率为 1/n  </p>
+</li>
+<li><p>根据乘法法则，x 在数组中任意位置的概率为 1/2n  </p>
+</li>
+<li><p>如果把每种情况发生的概率考虑进去，则平均时间复杂度为  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  1*1/2n + 2*1/2n + 3*n/2n + ... + n*n/2n + n*1/2</span><br><span class="line">= (3n+1)/4</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>去掉系数、低阶、常量，时间复杂度为O(n)</p>
+</li>
+</ol>
+<blockquote>
+<p>所以，平均时间复杂度的全称叫做加权平均时间复杂度，或者期望时间复杂度</p>
+</blockquote>
+<p><strong><em>当同一块代码在不同情况下，时间复杂度存在量级的差距时，才需要使用这三种时间复杂度来进行区分</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">？？？问题</span><br><span class="line">将x不在数组内的情况看做第n+1种情况，即也循环了n次，但是不匹配，所以不在数组内</span><br><span class="line">那么，每次的概率为1/(n+1)</span><br><span class="line">  1*1/(n+1)+2*1/(n+1)+...+n*1/(n+1)+n*1/(n+1)</span><br><span class="line">= (1+2+...+n+n)/(n+1)</span><br><span class="line">= O(n)</span><br><span class="line"></span><br><span class="line">这样分析正确吗？？？</span><br></pre></td></tr></table></figure>
+
+<h2 id="均摊时间复杂度"><a href="#均摊时间复杂度" class="headerlink" title="均摊时间复杂度"></a>均摊时间复杂度</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// array 表示一个长度为 n 的数组</span></span><br><span class="line"><span class="comment">// 代码中的 array.length 就等于 n</span></span><br><span class="line"><span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (count == array.length) &#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; array.length; ++i) &#123;</span><br><span class="line">            sum = sum + array[i];</span><br><span class="line">        &#125;</span><br><span class="line">        array[<span class="number">0</span>] = sum;</span><br><span class="line">        count = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    array[count] = val;</span><br><span class="line">    ++count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最好情况时间复杂度O(1)</li>
+<li>最坏情况时间复杂度O(n)</li>
+<li>平均情况时间复杂度<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">共有n+1种情况，每种情况的发生概率均为1/(n+1)</span><br><span class="line">  1*1/(n+1)+1*1/(n+1)+...1*1/(n+1)+n*1/(n+1)</span><br><span class="line">= n/(n+1) + n/(n+1)</span><br><span class="line">= O(1)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><strong>摊还分析</strong>  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对于insert()函数来说，O(1)复杂度的插入和O(n)复杂度的插入发生频率是非常规律的，而且前后有一定的时序关系</span><br><span class="line">即n-1个O(1)插入发生后，紧接着1个O(n)插入发生</span><br><span class="line">也就是说，每发生n-1次O(1)执行，就发生1次O(n)执行</span><br><span class="line">从一个周期来说，将1次O(n)执行分摊到每一个O(1)执行上</span><br><span class="line">就可以发现，每一次执行次数为2，这样就成了常量，所以均摊时间复杂度为O(1)</span><br></pre></td></tr></table></figure>
+
+<p><strong>均摊时间复杂度就是一种特殊的平均时间复杂度</strong><br>当大部分情况下，时间复杂度都很低，只有个别情况下时间复杂度很高，且这些操作之间存在前后连贯的时序关系时，可以考虑是否可以将耗时的那次操作平摊到复杂度比较低的操作上</p>
+<blockquote>
+<p>一般情况下，能使用均摊时间复杂度分析的地方，均摊时间复杂度就等于最好情况时间复杂度</p>
+</blockquote>
 
       
     </div>
@@ -568,7 +627,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要复杂度分析？"><span class="nav-number">1.</span> <span class="nav-text">为什么需要复杂度分析？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大O复杂度表示法"><span class="nav-number">2.</span> <span class="nav-text">大O复杂度表示法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">3.</span> <span class="nav-text">时间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的多项式时间复杂度"><span class="nav-number">4.</span> <span class="nav-text">常见的多项式时间复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#O-1"><span class="nav-number">4.1.</span> <span class="nav-text">O(1)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#O-logn-、O-nlogn"><span class="nav-number">4.2.</span> <span class="nav-text">O(logn)、O(nlogn)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#O-m-n-、O-m-n"><span class="nav-number">4.3.</span> <span class="nav-text">O(m+n)、O(m*n)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间复杂度"><span class="nav-number">5.</span> <span class="nav-text">空间复杂度</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要复杂度分析？"><span class="nav-number">1.</span> <span class="nav-text">为什么需要复杂度分析？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大O复杂度表示法"><span class="nav-number">2.</span> <span class="nav-text">大O复杂度表示法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">3.</span> <span class="nav-text">时间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的多项式时间复杂度"><span class="nav-number">4.</span> <span class="nav-text">常见的多项式时间复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#O-1"><span class="nav-number">4.1.</span> <span class="nav-text">O(1)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#O-logn-、O-nlogn"><span class="nav-number">4.2.</span> <span class="nav-text">O(logn)、O(nlogn)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#O-m-n-、O-m-n"><span class="nav-number">4.3.</span> <span class="nav-text">O(m+n)、O(m*n)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间复杂度"><span class="nav-number">5.</span> <span class="nav-text">空间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最好、最坏情况时间复杂度"><span class="nav-number">6.</span> <span class="nav-text">最好、最坏情况时间复杂度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平均时间复杂度分析"><span class="nav-number">7.</span> <span class="nav-text">平均时间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#均摊时间复杂度"><span class="nav-number">8.</span> <span class="nav-text">均摊时间复杂度</span></a></li></ol></div>
             
 
           </div>

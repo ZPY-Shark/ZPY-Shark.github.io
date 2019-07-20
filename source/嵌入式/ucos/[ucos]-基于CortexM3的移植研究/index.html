@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="嵌入式,ucos,RTOS,系统移植,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="这是一篇对ucos在Cortex-M3上移植问题的代码研究。">
+<meta name="keywords" content="嵌入式,ucos,RTOS,系统移植">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ucos-基于CortexM3的移植研究">
+<meta property="og:url" content="http://yoursite.com/source/嵌入式/ucos/[ucos]-基于CortexM3的移植研究/index.html">
+<meta property="og:site_name" content="Shark&#39;s Blog">
+<meta property="og:description" content="这是一篇对ucos在Cortex-M3上移植问题的代码研究。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/source/嵌入式/ucos/[ucos]-基于CortexM3的移植研究/ucos-ii.png">
+<meta property="og:updated_time" content="2019-07-20T11:14:54.368Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ucos-基于CortexM3的移植研究">
+<meta name="twitter:description" content="这是一篇对ucos在Cortex-M3上移植问题的代码研究。">
+<meta name="twitter:image" content="http://yoursite.com/source/嵌入式/ucos/[ucos]-基于CortexM3的移植研究/ucos-ii.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/source/嵌入式/ucos/[ucos]-基于CortexM3的移植研究/">
+
+
+
+
+
+  <title>ucos-基于CortexM3的移植研究 | Shark's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shark's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">相信一点一滴的积累！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/source/嵌入式/ucos/[ucos]-基于CortexM3的移植研究/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZPY-Shark">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shark's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ucos-基于CortexM3的移植研究</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T19:06:57+08:00">
+                2019-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/嵌入式/" itemprop="url" rel="index">
+                    <span itemprop="name">嵌入式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  这是一篇对ucos在Cortex-M3上移植问题的代码研究。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ucos-ii-基于Cortex-M3的移植概述"><a href="#ucos-ii-基于Cortex-M3的移植概述" class="headerlink" title="ucos-ii 基于Cortex-M3的移植概述"></a>ucos-ii 基于Cortex-M3的移植概述</h2><hr>
+<p>ucos-ii系统是一个可移植的实时操作系统。</p>
+<p>ucos-ii文件结构分为两部分，Source和Ports，其中Source文件夹中为系统核心文件，Ports文件夹中主要是操作系统用到的与CPU相关的文件。</p>
+<p>ucos-ii软件框架图如下所示<br><img src="./ucos-ii.png" alt></p>
+<p>ucos-ii与移植相关的Ports文件夹中有四个文件</p>
+<ul>
+<li>os_cpu.h</li>
+<li>os_cpu_c.c</li>
+<li>os_cpu_a.asm</li>
+<li>os_dbg.c</li>
+</ul>
+<h2 id="os-cpu-h"><a href="#os-cpu-h" class="headerlink" title="os_cpu.h"></a>os_cpu.h</h2><hr>
+<h3 id="数据类型声明"><a href="#数据类型声明" class="headerlink" title="数据类型声明"></a>数据类型声明</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*********************************************************************************************************</span></span><br><span class="line"><span class="comment">*                                              DATA TYPES</span></span><br><span class="line"><span class="comment">*                                         (Compiler Specific)</span></span><br><span class="line"><span class="comment">*********************************************************************************************************</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span>  BOOLEAN;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span>  INT8U;                    <span class="comment">/* Unsigned  8 bit quantity                           */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">signed</span>   <span class="keyword">char</span>  INT8S;                    <span class="comment">/* Signed    8 bit quantity                           */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span> INT16U;                   <span class="comment">/* Unsigned 16 bit quantity                           */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">signed</span>   <span class="keyword">short</span> INT16S;                   <span class="comment">/* Signed   16 bit quantity                           */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>   INT32U;                   <span class="comment">/* Unsigned 32 bit quantity                           */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">signed</span>   <span class="keyword">int</span>   INT32S;                   <span class="comment">/* Signed   32 bit quantity                           */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">float</span>          FP32;                     <span class="comment">/* Single precision floating point                    */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span>         FP64;                     <span class="comment">/* Double precision floating point                    */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>   OS_STK;                   <span class="comment">/* Each stack entry is 32-bit wide                    */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>   OS_CPU_SR;                <span class="comment">/* Define size of CPU status register (PSR = 32 bits) */</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>OS_STK<br>在Cortex-M3中堆栈的位宽为32位</li>
+<li>OS_CPU_SR<br>在Cortex-M3中CPU状态寄存器的大小也是32位</li>
+</ul>
+<h3 id="临界段的宏定义"><a href="#临界段的宏定义" class="headerlink" title="临界段的宏定义"></a>临界段的宏定义</h3><p><strong>临界段（Critical section）指的是处理时不可分割的代码。一旦这部分代码开始执行，则不允许任何中断打入，为确保临界段代码的执行不被中断，在进入临界段之前须关中断，在临界段执行完之后立即开中断。</strong>  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*********************************************************************************************************</span></span><br><span class="line"><span class="comment">*                                              Cortex-M1</span></span><br><span class="line"><span class="comment">*                                      Critical Section Management</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* Method #1:  Disable/Enable interrupts using simple instructions.  After critical section, interrupts</span></span><br><span class="line"><span class="comment">*             will be enabled even if they were disabled before entering the critical section.</span></span><br><span class="line"><span class="comment">*             NOT IMPLEMENTED</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* Method #2:  Disable/Enable interrupts by preserving the state of interrupts.  In other words, if</span></span><br><span class="line"><span class="comment">*             interrupts were disabled before entering the critical section, they will be disabled when</span></span><br><span class="line"><span class="comment">*             leaving the critical section.</span></span><br><span class="line"><span class="comment">*             NOT IMPLEMENTED</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* Method #3:  Disable/Enable interrupts by preserving the state of interrupts.  Generally speaking you</span></span><br><span class="line"><span class="comment">*             would store the state of the interrupt disable flag in the local variable 'cpu_sr' and then</span></span><br><span class="line"><span class="comment">*             disable interrupts.  'cpu_sr' is allocated in all of uC/OS-II's functions that need to</span></span><br><span class="line"><span class="comment">*             disable interrupts.  You would restore the interrupt disable state by copying back 'cpu_sr'</span></span><br><span class="line"><span class="comment">*             into the CPU's status register.</span></span><br><span class="line"><span class="comment">*********************************************************************************************************</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  OS_CRITICAL_METHOD   3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> OS_CRITICAL_METHOD == 3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  OS_ENTER_CRITICAL()  &#123;cpu_sr = OS_CPU_SR_Save();&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  OS_EXIT_CRITICAL()   &#123;OS_CPU_SR_Restore(cpu_sr);&#125;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>ucos-ii中临界段有三种实现方式：</p>
+<ul>
+<li>方式1<br>通过使用简单的处理器指令禁止/使能中断实现，用关中断指令实现OS_ENTER_CRITICAL()，开中断指令实现OS_EXIT_CRITICAL()。<blockquote>
+<p>存在问题：若某个函数内部存在临界段，若在调用该函数前已经关闭了中断，但调用该函数之后会打开中断，但当用户不希望调用完被开中断时，这种实现方式就存在问题，即无法满足临界段嵌套的情况。该种实现方法仅用于没有其他实现方式的一些特定的处理器或编译器。  </p>
+</blockquote>
+</li>
+<li>方式2<br>通过先将CPU状态寄存器的值入栈，然后关中断，在离开临界段时，直接将CPU状态寄存器的值出栈。<blockquote>
+<p>存在问题：当有处理器使用堆栈指针相对寻址模式时，即使用栈指针加减偏移量来传递参数，这种方式进入临界段将导致堆栈地址混乱，退出临界段时可能引发数据异常。</p>
+</blockquote>
+</li>
+<li>方式3<br>在关中断前，使用局部变量保存中断状态，然后关中断，在离开临界段时，直接恢复中断状态。<blockquote>
+<p>该方式是最安全的实现方式，也是几乎所有实时操作系统选择的方式。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">注意，ucos-ii中第三中实现方式使用宏定义，且直接使用了cpu_sr变量，因此，在调用OS_ENTER_CRITICAL()函数前，也必须定义cpu_sr变量。</span><br><span class="line">OS_CPU_SR_Save和OS_CPU_SR_Restore由汇编语言实现，实现代码在os_cpu_a.asm中。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="栈生长方向"><a href="#栈生长方向" class="headerlink" title="栈生长方向"></a>栈生长方向</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  OS_STK_GROWTH        1                   <span class="comment">/* Stack grows from HIGH to LOW memory on ARM        */</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>1 表示 栈生长方向由高地址向低地址生长，否则为低地址向高地址生长</li>
+</ul>
+<h3 id="任务切换函数"><a href="#任务切换函数" class="headerlink" title="任务切换函数"></a>任务切换函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  OS_TASK_SW()         OSCtxSw()</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>任务切换由汇编语言实现，实现代码在os_cpu_a.asm中。</li>
+</ul>
+<h3 id="函数原型声明"><a href="#函数原型声明" class="headerlink" title="函数原型声明"></a>函数原型声明</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*********************************************************************************************************</span></span><br><span class="line"><span class="comment">*                                              PROTOTYPES</span></span><br><span class="line"><span class="comment">*********************************************************************************************************</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> OS_CRITICAL_METHOD == 3                       <span class="comment">/* See OS_CPU_A.ASM                                  */</span></span></span><br><span class="line"><span class="function">OS_CPU_SR  <span class="title">OS_CPU_SR_Save</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>       <span class="title">OS_CPU_SR_Restore</span><span class="params">(OS_CPU_SR cpu_sr)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span>       <span class="title">OSCtxSw</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>       <span class="title">OSIntCtxSw</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>       <span class="title">OSStartHighRdy</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span>       <span class="title">OS_CPU_PendSVHandler</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line">                                                  </span><br><span class="line"><span class="function"><span class="keyword">void</span>       <span class="title">OS_CPU_SysTickHandler</span><span class="params">(<span class="keyword">void</span>)</span></span>;           <span class="comment">/* See OS_CPU_C.C                                    */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span>       <span class="title">OS_CPU_SysTickInit</span><span class="params">(<span class="keyword">void</span>)</span></span>;              </span><br><span class="line"><span class="function">INT32U     <span class="title">OS_CPU_SysTickClkFreq</span><span class="params">(<span class="keyword">void</span>)</span></span>;           <span class="comment">/* See BSP.C                                         */</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>OS_CPU_SR_Save() - 保存CPU状态寄存器</li>
+<li>OS_CPU_SR_Restore() - 恢复CPU状态寄存器</li>
+<li>OSCtxSw() - 触发任务切换</li>
+<li>OSIntCtxSw() - 在中断中触发任务切换</li>
+<li>OSStartHighRdy() - 开始执行已就绪的最高优先级任务</li>
+<li>OS_CPU_PendSVHandler() - PendSV异常处理函数，在这里执行真正的任务切换过程<blockquote>
+<p>以上函数均使用汇编语言实现，实现代码在os_cpu_a.asm中。</p>
+</blockquote>
+</li>
+<li>OS_CPU_SysTickHandler() - Systick中断处理函数</li>
+<li>OS_CPU_SysTickInit() - Systick初始化函数</li>
+<li>OS_CPU_SysTickClkFreq() - 获取Systick频率函数<blockquote>
+<p>这3个函数可以使用C语言实现，实现代码在os_cpu_c.c中。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="os-cpu-a-asm"><a href="#os-cpu-a-asm" class="headerlink" title="os_cpu_a.asm"></a>os_cpu_a.asm</h2><hr>
+<h3 id="PRIMASK寄存器"><a href="#PRIMASK寄存器" class="headerlink" title="PRIMASK寄存器"></a>PRIMASK寄存器</h3><ul>
+<li><p>PRIMASK寄存器为1位宽的中断屏蔽寄存器，默认值为0；在置位时，它会阻止 <strong><em>不可屏蔽中断NMI</em></strong> 和 <strong><em>HardFault异常</em></strong> <em>之外</em> 的所有中断和异常。</p>
+</li>
+<li><p>修改PRIMASK寄存器的数值可以使用CPS(修改处理器状态指令)修改寄存器值</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CPSIE </span>I <span class="comment">;清除PRIMASK（使能中断）</span></span><br><span class="line"><span class="keyword">CPSID </span>I <span class="comment">;置位PRIMASK（禁止中断）</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以使用MRS和MSR指令访问寄存器</p>
+</li>
+<li><p>MRS （Move to Register from State register），将状态寄存器的值移动到通用寄存器，状态寄存器为源地址，通用寄存器为目的地址，通常用于将状态寄存器的内容读取到通用寄存器中</p>
+</li>
+<li><p>MSR （Move to State register from Register），将通用寄存器的值移动到状态寄存器，通用寄存器为源地址，状态寄存器为目的地址，通常用于将通用寄存器的内容或一个立即数写入到状态寄存器中</p>
+<blockquote>
+<p>记忆方法，MSR S,R; MRS R,S;</p>
+</blockquote>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MOVS </span><span class="built_in">R0</span>, <span class="number">#1</span></span><br><span class="line"><span class="keyword">MSR </span>PRIMASK, <span class="built_in">R0</span> <span class="comment">;将1写入PRIMASK寄存器，禁止所有中断/异常</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">MOVS </span><span class="built_in">R0</span>, <span class="number">#0</span></span><br><span class="line"><span class="keyword">MSR </span>PRIMASK, <span class="built_in">R0</span> <span class="comment">;将0写入PRIMASK寄存器，使能所有中断/异常</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">MRS </span><span class="built_in">R0</span>, PRIMASK <span class="comment">;将PRIMASK寄存器的状态读取到R0寄存器</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="OS-CPU-SR-Save-函数实现"><a href="#OS-CPU-SR-Save-函数实现" class="headerlink" title="OS_CPU_SR_Save()函数实现"></a>OS_CPU_SR_Save()函数实现</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">OS_CPU_SR_Save</span></span><br><span class="line">    <span class="keyword">MRS </span>    <span class="built_in">R0</span>, PRIMASK                                         <span class="comment">; Set prio int mask to mask all (except faults)</span></span><br><span class="line">    <span class="keyword">CPSID </span>  I</span><br><span class="line">    <span class="keyword">BX </span>     <span class="built_in">LR</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="OS-CPU-SR-Restore-函数实现"><a href="#OS-CPU-SR-Restore-函数实现" class="headerlink" title="OS_CPU_SR_Restore()函数实现"></a>OS_CPU_SR_Restore()函数实现</h3>  <figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">OS_CPU_SR_Restore</span></span><br><span class="line">    <span class="keyword">MSR </span>    PRIMASK, <span class="built_in">R0</span></span><br><span class="line">    <span class="keyword">BX </span>     <span class="built_in">LR</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="PendSV异常"><a href="#PendSV异常" class="headerlink" title="PendSV异常"></a>PendSV异常</h3><ul>
+<li>PendSV - 可挂起的系统服务请求，OS一般使用该异常进行上下文切换，优先级在系统异常中是较低的，高于Systick</li>
+<li>使用PendSV实现上下文切换的原因<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">由于Systick中断优先级高于一般中断优先级，而在Systick中断服务程序中需要检查是否有高优先级任务就绪，可能需要进行任务切换，那么如果Systick抢占了原有的一个中断服务程序，那么进行任务切换需要一定时间，原有中断服务程序会较晚完成，所以系统的实时性会受到影响，不符合实时操作系统的理念。</span><br><span class="line">所以，Cortex-M3设计的PendSV就是用来进行任务切换，具体是将PendSV的优先级设置为最低255，在Systick中检查处理任务就绪状态，然后触发一个PendSV异常之后返回，等其他所有中断服务程序结束后，最后再执行PendSV异常服务程序，进行任务切换，即实现延迟切换。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="OSStartHighRdy-函数实现"><a href="#OSStartHighRdy-函数实现" class="headerlink" title="OSStartHighRdy()函数实现"></a>OSStartHighRdy()函数实现</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;********************************************************************************************************</span></span><br><span class="line"><span class="comment">;                                          START MULTITASKING</span></span><br><span class="line"><span class="comment">;                                       void OSStartHighRdy(void)</span></span><br><span class="line"><span class="comment">;</span></span><br><span class="line"><span class="comment">; Note(s) : 1) This function triggers a PendSV exception (essentially, causes a context switch) to cause</span></span><br><span class="line"><span class="comment">;              the first task to start.</span></span><br><span class="line"><span class="comment">;</span></span><br><span class="line"><span class="comment">;           2) OSStartHighRdy() MUST:</span></span><br><span class="line"><span class="comment">;              a) Setup PendSV exception priority to lowest;</span></span><br><span class="line"><span class="comment">;              b) Set initial PSP to 0, to tell context switcher this is first run;</span></span><br><span class="line"><span class="comment">;              c) Set OSRunning to TRUE;</span></span><br><span class="line"><span class="comment">;              d) Trigger PendSV exception;</span></span><br><span class="line"><span class="comment">;              e) Enable interrupts (tasks will run with interrupts enabled).</span></span><br><span class="line"><span class="comment">;********************************************************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">OSStartHighRdy</span></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=NVIC_SYSPRI14</span>                                  <span class="comment">; Set the PendSV exception priority</span></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R1</span>, <span class="symbol">=NVIC_PENDSV_PRI</span></span><br><span class="line">    <span class="keyword">STRB </span>   <span class="built_in">R1</span>, [<span class="built_in">R0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">MOVS </span>   <span class="built_in">R0</span>, <span class="number">#0</span>                                              <span class="comment">; Set the PSP to 0 for initial context switch call</span></span><br><span class="line">    <span class="keyword">MSR </span>    PSP, <span class="built_in">R0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=OSRunning</span>                                      <span class="comment">; OSRunning = TRUE</span></span><br><span class="line">    <span class="keyword">MOVS </span>   <span class="built_in">R1</span>, <span class="number">#1</span></span><br><span class="line">    <span class="keyword">STRB </span>   <span class="built_in">R1</span>, [<span class="built_in">R0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=NVIC_INT_CTRL</span>                                  <span class="comment">; Trigger the PendSV exception (causes context switch)</span></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R1</span>, <span class="symbol">=NVIC_PENDSVSET</span></span><br><span class="line">    <span class="keyword">STR </span>    <span class="built_in">R1</span>, [<span class="built_in">R0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">CPSIE </span>  I                                                   <span class="comment">; Enable interrupts at processor level</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">OSStartHang</span></span><br><span class="line">    <span class="keyword">B </span>      OSStartHang                                         <span class="comment">; Should never get here</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Cortex-M3的异常有优先级之分，高优先级异常可以抢占低优先级异常</p>
+</li>
+<li><p>有些异常具有固定的优先级（复位、NMI、HardFault），优先级由负数表示</p>
+</li>
+<li><p>其他异常具有可编程的优先级，优先级为0~255</p>
+</li>
+<li><p>每个中断都有对应的中断优先级寄存器，PendSV异常的中断优先级寄存器地址为0xE000ED22，即NVIC_SYSPRI14的值</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">NVIC_SYSPRI14</span>   <span class="meta">EQU</span>     <span class="number">0xE000ED22</span>                              <span class="comment">; System priority register (priority 14).</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将PendSV优先级设为最低255，即NVIC_PENDSV_PRI的值</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">NVIC_PENDSV_PRI</span> <span class="meta">EQU</span>           <span class="number">0xFF</span>                              <span class="comment">; PendSV priority value (lowest).</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将PendSV的优先级设置为255，则使用STRB(字节数据写入命令)指令将0xFF写入PendSV优先级寄存器</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=NVIC_SYSPRI14</span>                                  <span class="comment">; Set the PendSV exception priority</span></span><br><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R1</span>, <span class="symbol">=NVIC_PENDSV_PRI</span></span><br><span class="line"><span class="keyword">STRB </span>   <span class="built_in">R1</span>, [<span class="built_in">R0</span>] <span class="comment">;STRB将一个8位数据写入指定的内存单元，即将R1寄存器的低8位写入R1指向的内存单元中</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>清空过程堆栈寄存器</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MOVS </span>   <span class="built_in">R0</span>, <span class="number">#0</span>                                              <span class="comment">; Set the PSP to 0 for initial context switch call</span></span><br><span class="line"><span class="keyword">MSR </span>    PSP, <span class="built_in">R0</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p>为什么要清除呢？</p>
+</blockquote>
+<ul>
+<li><p>将OSRunning的值写为1，表示系统进入运行状态</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=OSRunning</span>                                      <span class="comment">; OSRunning = TRUE</span></span><br><span class="line"><span class="keyword">MOVS </span>   <span class="built_in">R1</span>, <span class="number">#1</span></span><br><span class="line"><span class="keyword">STRB </span>   <span class="built_in">R1</span>, [<span class="built_in">R0</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后触发PendSV异常</p>
+</li>
+<li><p>可以通过向中断控制寄存器写入值，设置中断的挂起状态，读值可以获取中断挂起状态</p>
+</li>
+<li><p>中断控制寄存器的地址为0xE000ED04，即NVIC_INT_CTRL</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">NVIC_INT_CTRL</span>   <span class="meta">EQU</span>     <span class="number">0xE000ED04</span>                              <span class="comment">; Interrupt control state register.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其中PendSV为第28位，对中断控制寄存器的第28位写1即可挂起PendSV系统调用，即NVIC_PENDSVSET</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">NVIC_PENDSVSET</span>  <span class="meta">EQU</span>     <span class="number">0x10000000</span>                              <span class="comment">; Value to trigger PendSV exception.</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用STR(字数据写入命令)指令将第28位为1的值写入中断控制寄存器</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=NVIC_INT_CTRL</span>                                  <span class="comment">; Trigger the PendSV exception (causes context switch)</span></span><br><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R1</span>, <span class="symbol">=NVIC_PENDSVSET</span></span><br><span class="line"><span class="keyword">STR </span>    <span class="built_in">R1</span>, [<span class="built_in">R0</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后在处理器级别使能中断</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CPSIE </span>  I                                                   <span class="comment">; Enable interrupts at processor level</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p>为什么要使能中断，是因为怕之前有禁止中断，现在系统运行起来了要打开吗？</p>
+</blockquote>
+<ul>
+<li>最后进入死循环<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">OSStartHang</span></span><br><span class="line">    <span class="keyword">B </span>      OSStartHang                                         <span class="comment">; Should never get here</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p>由于已经触发了PendSV中断且使能，所以应该会立即进入PendSV异常处理程序，接下来会不断的在各个任务间切换，所以再也不会进入最后一个死循环</p>
+</blockquote>
+<h3 id="OSCtxSw-和-OSIntCtxSw-函数实现"><a href="#OSCtxSw-和-OSIntCtxSw-函数实现" class="headerlink" title="OSCtxSw() 和 OSIntCtxSw() 函数实现"></a>OSCtxSw() 和 OSIntCtxSw() 函数实现</h3><ul>
+<li>OSCtxSw()函数触发任务切换，OSIntCtxSw()在中断中触发任务切换</li>
+<li>由于真正的任务切换是在PendSV异常处理程序中完成的，触发任务切换仅仅触发PendSV异常即可<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">;********************************************************************************************************</span></span><br><span class="line"><span class="comment">;                               PERFORM A CONTEXT SWITCH (From task level)</span></span><br><span class="line"><span class="comment">;                                           void OSCtxSw(void)</span></span><br><span class="line"><span class="comment">;</span></span><br><span class="line"><span class="comment">; Note(s) : 1) OSCtxSw() is called when OS wants to perform a task context switch.  This function</span></span><br><span class="line"><span class="comment">;              triggers the PendSV exception which is where the real work is done.</span></span><br><span class="line"><span class="comment">;********************************************************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">OSCtxSw</span></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=NVIC_INT_CTRL</span>                                  <span class="comment">; Trigger the PendSV exception (causes context switch)</span></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R1</span>, <span class="symbol">=NVIC_PENDSVSET</span></span><br><span class="line">    <span class="keyword">STR </span>    <span class="built_in">R1</span>, [<span class="built_in">R0</span>]</span><br><span class="line">    <span class="keyword">BX </span>     <span class="built_in">LR</span></span><br><span class="line"></span><br><span class="line"><span class="comment">;********************************************************************************************************</span></span><br><span class="line"><span class="comment">;                             PERFORM A CONTEXT SWITCH (From interrupt level)</span></span><br><span class="line"><span class="comment">;                                         void OSIntCtxSw(void)</span></span><br><span class="line"><span class="comment">;</span></span><br><span class="line"><span class="comment">; Notes:    1) OSIntCtxSw() is called by OSIntExit() when it determines a context switch is needed as</span></span><br><span class="line"><span class="comment">;              the result of an interrupt.  This function simply triggers a PendSV exception which will</span></span><br><span class="line"><span class="comment">;              be handled when there are no more interrupts active and interrupts are enabled.</span></span><br><span class="line"><span class="comment">;********************************************************************************************************</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">OSIntCtxSw</span></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=NVIC_INT_CTRL</span>                                  <span class="comment">; Trigger the PendSV exception (causes context switch)</span></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R1</span>, <span class="symbol">=NVIC_PENDSVSET</span></span><br><span class="line">    <span class="keyword">STR </span>    <span class="built_in">R1</span>, [<span class="built_in">R0</span>]</span><br><span class="line">    <span class="keyword">BX </span>     <span class="built_in">LR</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="OS-CPU-PendSVHandler-函数实现"><a href="#OS-CPU-PendSVHandler-函数实现" class="headerlink" title="OS_CPU_PendSVHandler() 函数实现"></a>OS_CPU_PendSVHandler() 函数实现</h3><ul>
+<li><p>OS_CPU_PendSVHandler()为PendSV的异常处理函数，在这里实现了真正的任务切换</p>
+</li>
+<li><p>首先在任务切换时需要禁止系统中断，防止出现异常</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CPSID </span>  I                                                   <span class="comment">; Prevent interruption during context switch</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>取出任务堆栈寄存器中的值，任务堆栈寄存器里的值为任务堆栈栈顶地址，检查值是否为0，由于之前在OSStartHighRdy()中对任务堆栈指针PSP进行了清0，所以当PSP为0时，表示为第一次发生任务切换；当不为0时，表示不是第一次发生任务切换</p>
+</li>
+<li><p>由于任务切换需要将任务的运行环境入栈保存，所以当第一次切换时，不需要进行保存，直接跳过环境参数入栈过程</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">MRS </span>    <span class="built_in">R0</span>, PSP                                             <span class="comment">; PSP is process stack pointer</span></span><br><span class="line"><span class="keyword">CBZ </span>    <span class="built_in">R0</span>, OS_CPU_PendSVHandler_nosave                     <span class="comment">; Skip register save the first time</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若不是第一次切换，则需要保存环境参数</p>
+</li>
+<li><p>使用SUBS将任务堆栈地址减去32个字节，即扩大留出8个字的空间，然后使用STM(批量内存字数据写入命令)将R4~R11的值依次保存到任务堆栈刚刚留出的8个字的空间中</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SUBS </span>   <span class="built_in">R0</span>, <span class="built_in">R0</span>, <span class="number">#0x20</span>                                       <span class="comment">; Save remaining regs r4-11 on process stack</span></span><br><span class="line"><span class="keyword">STM </span>    <span class="built_in">R0</span>, &#123;<span class="built_in">R4</span>-<span class="built_in">R11</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用LDR(字读取指令)，读取当前任务控制块地址(也是任务栈顶指针的地址)到R1中</p>
+</li>
+<li><p>然后再把任务堆栈栈顶指针变量的地址值读取到R1中，即栈顶指针地址</p>
+</li>
+<li><p>最后使用(字数据写入命令)把刚刚保存完R4~R11参数的栈顶地址保存到栈顶指针变量的地址中去，完成了当前任务环境入栈</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R1</span>, <span class="symbol">=OSTCBCur</span>                                       <span class="comment">; OSTCBCur-&gt;OSTCBStkPtr = SP;</span></span><br><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R1</span>, [<span class="built_in">R1</span>]</span><br><span class="line"><span class="keyword">STR </span>    <span class="built_in">R0</span>, [<span class="built_in">R1</span>]                                            <span class="comment">; R0 is SP of process being switched out</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>OS_CPU_PendSVHandler_nosave 实现了将CPU执行流切换到最高就绪优先级任务的执行</p>
+</li>
+<li><p>将R14的值，即子任务返回地址入栈</p>
+</li>
+<li><p>跳转到任务切换函数的钩子函数执行</p>
+</li>
+<li><p>返回后R14的值出栈，即实现了钩子函数的执行</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">OS_CPU_PendSVHandler_nosave</span></span><br><span class="line">    <span class="keyword">PUSH </span>   &#123;<span class="built_in">R14</span>&#125;                                               <span class="comment">; Save LR exc_return value</span></span><br><span class="line">    <span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=OSTaskSwHook</span>                                   <span class="comment">; OSTaskSwHook();</span></span><br><span class="line">    <span class="keyword">BLX </span>    <span class="built_in">R0</span></span><br><span class="line">    <span class="keyword">POP </span>    &#123;<span class="built_in">R14</span>&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将最高就绪优先级任务的优先级存入到当前运行任务的优先级变量中，即OSPrioCur = OSPrioHighRdy;</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=OSPrioCur</span>                                      <span class="comment">; OSPrioCur = OSPrioHighRdy;</span></span><br><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R1</span>, <span class="symbol">=OSPrioHighRdy</span></span><br><span class="line"><span class="keyword">LDRB </span>   <span class="built_in">R2</span>, [<span class="built_in">R1</span>]</span><br><span class="line"><span class="keyword">STRB </span>   <span class="built_in">R2</span>, [<span class="built_in">R0</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将最高就绪优先级任务的任务控制块TCB地址保存到当前运行任务控制块指针变量内，即OSTCBCur  = OSTCBHighRdy;</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R0</span>, <span class="symbol">=OSTCBCur</span>                                       <span class="comment">; OSTCBCur  = OSTCBHighRdy;</span></span><br><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R1</span>, <span class="symbol">=OSTCBHighRdy</span></span><br><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R2</span>, [<span class="built_in">R1</span>]</span><br><span class="line"><span class="keyword">STR </span>    <span class="built_in">R2</span>, [<span class="built_in">R0</span>]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>取出当前运行任务控制块的地址，恢复任务堆栈中R4~R11的值到寄存器中</p>
+</li>
+<li><p>将任务控制块的栈顶指针地址退回8个字</p>
+</li>
+<li><p>最后将任务控制块的栈顶指针值赋值给任务堆栈指针PSP，即加载新的任务堆栈到PSP中</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">LDR </span>    <span class="built_in">R0</span>, [<span class="built_in">R2</span>]                                            <span class="comment">; R0 is new process SP; SP = OSTCBHighRdy-&gt;OSTCBStkPtr;</span></span><br><span class="line"><span class="keyword">LDM </span>    <span class="built_in">R0</span>, &#123;<span class="built_in">R4</span>-<span class="built_in">R11</span>&#125;                                        <span class="comment">; Restore r4-11 from new process stack</span></span><br><span class="line"><span class="keyword">ADDS </span>   <span class="built_in">R0</span>, <span class="built_in">R0</span>, <span class="number">#0x20</span></span><br><span class="line"><span class="keyword">MSR </span>    PSP, <span class="built_in">R0</span>                                             <span class="comment">; Load PSP with new process SP</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用逻辑或操作将LR寄存器的位2强制设置为1，目的是返回线程栈PSP</p>
+</li>
+<li><p>在处理器进入异常处理程序时，LR的值会被更新为EXC_RETURN，EXC_RETURN位2的值，1表示返回线程栈PSP，0表示返回主栈MSP</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ORR </span>    <span class="built_in">LR</span>, <span class="built_in">LR</span>, <span class="number">#0x04</span>                                       <span class="comment">; Ensure exception return uses process stack</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后打开中断，跳转到返回地址</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CPSIE </span>  I</span><br><span class="line"><span class="keyword">BX </span>     <span class="built_in">LR</span>                                                  <span class="comment">; Exception return will restore remaining context</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">END</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="详细梳理任务切换流程"><a href="#详细梳理任务切换流程" class="headerlink" title="详细梳理任务切换流程"></a>详细梳理任务切换流程</h2><hr>
+<h2 id="os-cpu-c-c"><a href="#os-cpu-c-c" class="headerlink" title="os_cpu_c.c"></a>os_cpu_c.c</h2><hr>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/嵌入式/" rel="tag"># 嵌入式</a>
+          
+            <a href="/tags/ucos/" rel="tag"># ucos</a>
+          
+            <a href="/tags/RTOS/" rel="tag"># RTOS</a>
+          
+            <a href="/tags/系统移植/" rel="tag"># 系统移植</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/source/数据结构与算法/[数据结构]-链表/" rel="next" title="数据结构-链表">
+                <i class="fa fa-chevron-left"></i> 数据结构-链表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="ZPY-Shark">
+            
+              <p class="site-author-name" itemprop="name">ZPY-Shark</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ucos-ii-基于Cortex-M3的移植概述"><span class="nav-number">1.</span> <span class="nav-text">ucos-ii 基于Cortex-M3的移植概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#os-cpu-h"><span class="nav-number">2.</span> <span class="nav-text">os_cpu.h</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类型声明"><span class="nav-number">2.1.</span> <span class="nav-text">数据类型声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临界段的宏定义"><span class="nav-number">2.2.</span> <span class="nav-text">临界段的宏定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈生长方向"><span class="nav-number">2.3.</span> <span class="nav-text">栈生长方向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务切换函数"><span class="nav-number">2.4.</span> <span class="nav-text">任务切换函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型声明"><span class="nav-number">2.5.</span> <span class="nav-text">函数原型声明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#os-cpu-a-asm"><span class="nav-number">3.</span> <span class="nav-text">os_cpu_a.asm</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PRIMASK寄存器"><span class="nav-number">3.1.</span> <span class="nav-text">PRIMASK寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OS-CPU-SR-Save-函数实现"><span class="nav-number">3.2.</span> <span class="nav-text">OS_CPU_SR_Save()函数实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OS-CPU-SR-Restore-函数实现"><span class="nav-number">3.3.</span> <span class="nav-text">OS_CPU_SR_Restore()函数实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PendSV异常"><span class="nav-number">3.4.</span> <span class="nav-text">PendSV异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSStartHighRdy-函数实现"><span class="nav-number">3.5.</span> <span class="nav-text">OSStartHighRdy()函数实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSCtxSw-和-OSIntCtxSw-函数实现"><span class="nav-number">3.6.</span> <span class="nav-text">OSCtxSw() 和 OSIntCtxSw() 函数实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OS-CPU-PendSVHandler-函数实现"><span class="nav-number">3.7.</span> <span class="nav-text">OS_CPU_PendSVHandler() 函数实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细梳理任务切换流程"><span class="nav-number">4.</span> <span class="nav-text">详细梳理任务切换流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#os-cpu-c-c"><span class="nav-number">5.</span> <span class="nav-text">os_cpu_c.c</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZPY-Shark</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

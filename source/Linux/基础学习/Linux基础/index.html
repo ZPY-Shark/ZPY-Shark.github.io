@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Shark&#39;s Blog">
 <meta property="og:description" content="Linux基础学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-15T12:32:21.883Z">
+<meta property="og:updated_time" content="2019-07-28T11:25:08.851Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux基础">
 <meta name="twitter:description" content="Linux基础学习。">
@@ -743,7 +743,7 @@
 <td align="center">eth0</td>
 </tr>
 </tbody></table>
-<h3 id="查看wang’l情况"><a href="#查看wang’l情况" class="headerlink" title="查看wang’l情况"></a>查看wang’l情况</h3><p>  查看网卡物理连接情况<br>   mii-tool eth0</p>
+<h3 id="查看网络情况"><a href="#查看网络情况" class="headerlink" title="查看网络情况"></a>查看网络情况</h3><p>  查看网卡物理连接情况<br>   mii-tool eth0</p>
 <h3 id="查看网关"><a href="#查看网关" class="headerlink" title="查看网关"></a>查看网关</h3><ul>
 <li>route -n<br>使用-n参数不解析主机名</li>
 </ul>
@@ -757,7 +757,70 @@
 <li>route add -host &lt;指定ip&gt; gw &lt;网关ip&gt;</li>
 <li>route add -net &lt;指定网段&gt; netmask &lt;子网掩码&gt; gw &lt;网关ip&gt;</li>
 </ul>
-
+<h3 id="网络服务管理"><a href="#网络服务管理" class="headerlink" title="网络服务管理"></a>网络服务管理</h3><ul>
+<li>略</li>
+</ul>
+<h2 id="软件管理"><a href="#软件管理" class="headerlink" title="软件管理"></a>软件管理</h2><hr>
+<p>包管理器：是安装、卸载、解决软件依赖关系的重要工具</p>
+<h3 id="Debian系列：Debian、Ubuntu、Raspbian等"><a href="#Debian系列：Debian、Ubuntu、Raspbian等" class="headerlink" title="Debian系列：Debian、Ubuntu、Raspbian等"></a>Debian系列：Debian、Ubuntu、Raspbian等</h3><ul>
+<li>安装包格式：.deb</li>
+<li>包管理器：yum</li>
+</ul>
+<h3 id="Redhat系列：Redhat、CentOS、Fedora等"><a href="#Redhat系列：Redhat、CentOS、Fedora等" class="headerlink" title="Redhat系列：Redhat、CentOS、Fedora等"></a>Redhat系列：Redhat、CentOS、Fedora等</h3><ul>
+<li>安装包格式：.rpm</li>
+<li>包管理器：apt</li>
+</ul>
+<h4 id="rpm包格式"><a href="#rpm包格式" class="headerlink" title="rpm包格式"></a>rpm包格式</h4><p><font color="red">vim-commom</font>-<font color="orange">7.4.10-5</font>.<font color="green">el7</font>.<font color="blue">x86_64</font>.rpm</p>
+<p><font color="red">软件名称</font>-<font color="orange">软件版本</font>.<font color="green">系统平台</font>.<font color="blue">平台</font></p>
+<h4 id="rpm命令"><a href="#rpm命令" class="headerlink" title="rpm命令"></a>rpm命令</h4><p>常用参数</p>
+<ul>
+<li>-q 查询软件包（query）+ 软件名</li>
+<li>-i 安装软件包（install）+ 软件包全名，注意依赖关系</li>
+<li>-e 卸载软件包（erase）+ 软件名</li>
+</ul>
+<blockquote>
+<p>需要解决依赖关系，需要软件包</p>
+</blockquote>
+<h4 id="yum包管理器"><a href="#yum包管理器" class="headerlink" title="yum包管理器"></a>yum包管理器</h4><ul>
+<li><p>yum配置文件</p>
+<ul>
+<li>/etc/yum.repos.d/CentOS-Base.repo</li>
+<li>可以修改软件仓库源 baseurl</li>
+<li>官方源：<a href="http://mirror.centos.org/" target="_blank" rel="noopener">http://mirror.centos.org/</a></li>
+<li>阿里源：<a href="https://opsx.alibaba.com/" target="_blank" rel="noopener">https://opsx.alibaba.com/</a></li>
+<li>yum makecache 生成缓存</li>
+</ul>
+</li>
+<li><p>yum命令常用选项</p>
+<ul>
+<li>install 安装软件包</li>
+<li>remove 卸载软件包</li>
+<li>list|grouplist 查看软件包</li>
+<li>update 升级软件包</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>自动解决依赖关系</p>
+</blockquote>
+<h3 id="源代码安装"><a href="#源代码安装" class="headerlink" title="源代码安装"></a>源代码安装</h3><ul>
+<li><p>获取源代码包，解压</p>
+</li>
+<li><p>三步走</p>
+<ul>
+<li><p>./configure</p>
+<blockquote>
+<p>注意：–prefix参数指定软件安装目录。当执行make install命令时，会将软件安装在此路径中。</p>
+</blockquote>
+</li>
+<li><p>make / gmake</p>
+</li>
+<li><p>make install / gmake install</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="升级内核"><a href="#升级内核" class="headerlink" title="升级内核"></a>升级内核</h3>
       
     </div>
     
@@ -933,7 +996,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端"><span class="nav-number">1.</span> <span class="nav-text">终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见目录介绍"><span class="nav-number">2.</span> <span class="nav-text">常见目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">3.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">3.1.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help"><span class="nav-number">3.2.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info"><span class="nav-number">3.3.</span> <span class="nav-text">info</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">4.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件查看"><span class="nav-number">4.1.</span> <span class="nav-text">文件查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录的查看与删除"><span class="nav-number">4.2.</span> <span class="nav-text">目录的查看与删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和移动"><span class="nav-number">4.3.</span> <span class="nav-text">复制和移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本查看命令"><span class="nav-number">4.4.</span> <span class="nav-text">文本查看命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包、压缩、解压缩"><span class="nav-number">4.5.</span> <span class="nav-text">打包、压缩、解压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VI编辑器"><span class="nav-number">4.6.</span> <span class="nav-text">VI编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正常模式"><span class="nav-number">4.6.1.</span> <span class="nav-text">正常模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">4.6.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">4.6.3.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视模式"><span class="nav-number">4.6.4.</span> <span class="nav-text">可视模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理命令"><span class="nav-number">5.1.</span> <span class="nav-text">用户管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组管理命令"><span class="nav-number">5.2.</span> <span class="nav-text">组管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户切换"><span class="nav-number">5.3.</span> <span class="nav-text">用户切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户（组）配置文件"><span class="nav-number">5.4.</span> <span class="nav-text">用户（组）配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件权限"><span class="nav-number">5.5.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件权限"><span class="nav-number">5.6.</span> <span class="nav-text">修改文件权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络管理"><span class="nav-number">6.</span> <span class="nav-text">网络管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络状态查看"><span class="nav-number">6.1.</span> <span class="nav-text">网络状态查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络接口命名修改"><span class="nav-number">6.2.</span> <span class="nav-text">网络接口命名修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看wang’l情况"><span class="nav-number">6.3.</span> <span class="nav-text">查看wang’l情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网关"><span class="nav-number">6.4.</span> <span class="nav-text">查看网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络配置命令"><span class="nav-number">6.5.</span> <span class="nav-text">网络配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关配置命令"><span class="nav-number">6.6.</span> <span class="nav-text">网关配置命令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端"><span class="nav-number">1.</span> <span class="nav-text">终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见目录介绍"><span class="nav-number">2.</span> <span class="nav-text">常见目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">3.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">3.1.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help"><span class="nav-number">3.2.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info"><span class="nav-number">3.3.</span> <span class="nav-text">info</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">4.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件查看"><span class="nav-number">4.1.</span> <span class="nav-text">文件查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录的查看与删除"><span class="nav-number">4.2.</span> <span class="nav-text">目录的查看与删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和移动"><span class="nav-number">4.3.</span> <span class="nav-text">复制和移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本查看命令"><span class="nav-number">4.4.</span> <span class="nav-text">文本查看命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包、压缩、解压缩"><span class="nav-number">4.5.</span> <span class="nav-text">打包、压缩、解压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VI编辑器"><span class="nav-number">4.6.</span> <span class="nav-text">VI编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正常模式"><span class="nav-number">4.6.1.</span> <span class="nav-text">正常模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">4.6.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">4.6.3.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视模式"><span class="nav-number">4.6.4.</span> <span class="nav-text">可视模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理命令"><span class="nav-number">5.1.</span> <span class="nav-text">用户管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组管理命令"><span class="nav-number">5.2.</span> <span class="nav-text">组管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户切换"><span class="nav-number">5.3.</span> <span class="nav-text">用户切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户（组）配置文件"><span class="nav-number">5.4.</span> <span class="nav-text">用户（组）配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件权限"><span class="nav-number">5.5.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件权限"><span class="nav-number">5.6.</span> <span class="nav-text">修改文件权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络管理"><span class="nav-number">6.</span> <span class="nav-text">网络管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络状态查看"><span class="nav-number">6.1.</span> <span class="nav-text">网络状态查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络接口命名修改"><span class="nav-number">6.2.</span> <span class="nav-text">网络接口命名修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网络情况"><span class="nav-number">6.3.</span> <span class="nav-text">查看网络情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网关"><span class="nav-number">6.4.</span> <span class="nav-text">查看网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络配置命令"><span class="nav-number">6.5.</span> <span class="nav-text">网络配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关配置命令"><span class="nav-number">6.6.</span> <span class="nav-text">网关配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络服务管理"><span class="nav-number">6.7.</span> <span class="nav-text">网络服务管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件管理"><span class="nav-number">7.</span> <span class="nav-text">软件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Debian系列：Debian、Ubuntu、Raspbian等"><span class="nav-number">7.1.</span> <span class="nav-text">Debian系列：Debian、Ubuntu、Raspbian等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redhat系列：Redhat、CentOS、Fedora等"><span class="nav-number">7.2.</span> <span class="nav-text">Redhat系列：Redhat、CentOS、Fedora等</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rpm包格式"><span class="nav-number">7.2.1.</span> <span class="nav-text">rpm包格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rpm命令"><span class="nav-number">7.2.2.</span> <span class="nav-text">rpm命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yum包管理器"><span class="nav-number">7.2.3.</span> <span class="nav-text">yum包管理器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源代码安装"><span class="nav-number">7.3.</span> <span class="nav-text">源代码安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级内核"><span class="nav-number">7.4.</span> <span class="nav-text">升级内核</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Shark&#39;s Blog">
 <meta property="og:description" content="Linux基础学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-28T11:25:08.851Z">
+<meta property="og:updated_time" content="2019-07-29T12:34:47.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux基础">
 <meta name="twitter:description" content="Linux基础学习。">
@@ -820,7 +820,60 @@
 </ul>
 </li>
 </ul>
-<h3 id="升级内核"><a href="#升级内核" class="headerlink" title="升级内核"></a>升级内核</h3>
+<h3 id="升级内核"><a href="#升级内核" class="headerlink" title="升级内核"></a>升级内核</h3><p>略</p>
+<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><hr>
+<h3 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h3><ul>
+<li><p>ps - 查看进程状态（process state）</p>
+<ul>
+<li>ps - 查看当前终端下能够查看到的 进程 </li>
+<li>ps -e - 查看其他进程 </li>
+</ul>
+</li>
+<li><p>pstree - 查看进程树</p>
+</li>
+<li><p>top - 更全面的查看进程信息</p>
+<ul>
+<li>top -p + 进程ID</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>进程是树形结构，进程和权限有着密不可分的关系</p>
+</blockquote>
+<h3 id="进程优先级调整"><a href="#进程优先级调整" class="headerlink" title="进程优先级调整"></a>进程优先级调整</h3><ul>
+<li><p>调整优先级</p>
+<ul>
+<li><p>nice 范围从-20 ~ 19，值越小，优先级越高，抢占资源就越多</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nice -n 10 ./a.sh  //默认启动优先级为0，执行这条命令以优先级为10进行启动 a.sh 这个脚本程序</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>renice 在不关闭进程的情况下重新设置优先级</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">renice -n 15 19314  //这条命令在不关闭a.sh这个脚本的情况下，重新调整程序优先级为15</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>进程的作业控制</p>
+<ul>
+<li><p>后台运行，&amp;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./a.sh &amp;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>jobs 命令 ：显示当前shell中已经启动的作业状态</p>
+</li>
+<li><p>fg + 编号 ： 将后台对应编号的程序调入前台运行</p>
+</li>
+<li><p>Ctrl+Z ：将前台当前运行的程序挂起</p>
+</li>
+<li><p>bg + 编号 ： 后台对应编号的程序调入后台运行</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><ul>
+<li><p>kill -l 显示信号名称，若不加信号编号，则列出全部信号名称</p>
+</li>
+<li><p>kill -9 PID 向PID程序发生编号为9的信号，即SIGKILL，无条件杀死</p>
+</li>
+</ul>
+
       
     </div>
     
@@ -996,7 +1049,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端"><span class="nav-number">1.</span> <span class="nav-text">终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见目录介绍"><span class="nav-number">2.</span> <span class="nav-text">常见目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">3.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">3.1.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help"><span class="nav-number">3.2.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info"><span class="nav-number">3.3.</span> <span class="nav-text">info</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">4.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件查看"><span class="nav-number">4.1.</span> <span class="nav-text">文件查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录的查看与删除"><span class="nav-number">4.2.</span> <span class="nav-text">目录的查看与删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和移动"><span class="nav-number">4.3.</span> <span class="nav-text">复制和移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本查看命令"><span class="nav-number">4.4.</span> <span class="nav-text">文本查看命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包、压缩、解压缩"><span class="nav-number">4.5.</span> <span class="nav-text">打包、压缩、解压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VI编辑器"><span class="nav-number">4.6.</span> <span class="nav-text">VI编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正常模式"><span class="nav-number">4.6.1.</span> <span class="nav-text">正常模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">4.6.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">4.6.3.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视模式"><span class="nav-number">4.6.4.</span> <span class="nav-text">可视模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理命令"><span class="nav-number">5.1.</span> <span class="nav-text">用户管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组管理命令"><span class="nav-number">5.2.</span> <span class="nav-text">组管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户切换"><span class="nav-number">5.3.</span> <span class="nav-text">用户切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户（组）配置文件"><span class="nav-number">5.4.</span> <span class="nav-text">用户（组）配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件权限"><span class="nav-number">5.5.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件权限"><span class="nav-number">5.6.</span> <span class="nav-text">修改文件权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络管理"><span class="nav-number">6.</span> <span class="nav-text">网络管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络状态查看"><span class="nav-number">6.1.</span> <span class="nav-text">网络状态查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络接口命名修改"><span class="nav-number">6.2.</span> <span class="nav-text">网络接口命名修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网络情况"><span class="nav-number">6.3.</span> <span class="nav-text">查看网络情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网关"><span class="nav-number">6.4.</span> <span class="nav-text">查看网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络配置命令"><span class="nav-number">6.5.</span> <span class="nav-text">网络配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关配置命令"><span class="nav-number">6.6.</span> <span class="nav-text">网关配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络服务管理"><span class="nav-number">6.7.</span> <span class="nav-text">网络服务管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件管理"><span class="nav-number">7.</span> <span class="nav-text">软件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Debian系列：Debian、Ubuntu、Raspbian等"><span class="nav-number">7.1.</span> <span class="nav-text">Debian系列：Debian、Ubuntu、Raspbian等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redhat系列：Redhat、CentOS、Fedora等"><span class="nav-number">7.2.</span> <span class="nav-text">Redhat系列：Redhat、CentOS、Fedora等</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rpm包格式"><span class="nav-number">7.2.1.</span> <span class="nav-text">rpm包格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rpm命令"><span class="nav-number">7.2.2.</span> <span class="nav-text">rpm命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yum包管理器"><span class="nav-number">7.2.3.</span> <span class="nav-text">yum包管理器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源代码安装"><span class="nav-number">7.3.</span> <span class="nav-text">源代码安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级内核"><span class="nav-number">7.4.</span> <span class="nav-text">升级内核</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#终端"><span class="nav-number">1.</span> <span class="nav-text">终端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见目录介绍"><span class="nav-number">2.</span> <span class="nav-text">常见目录介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助命令"><span class="nav-number">3.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">3.1.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#help"><span class="nav-number">3.2.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info"><span class="nav-number">3.3.</span> <span class="nav-text">info</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">4.</span> <span class="nav-text">文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件查看"><span class="nav-number">4.1.</span> <span class="nav-text">文件查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目录的查看与删除"><span class="nav-number">4.2.</span> <span class="nav-text">目录的查看与删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制和移动"><span class="nav-number">4.3.</span> <span class="nav-text">复制和移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本查看命令"><span class="nav-number">4.4.</span> <span class="nav-text">文本查看命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包、压缩、解压缩"><span class="nav-number">4.5.</span> <span class="nav-text">打包、压缩、解压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VI编辑器"><span class="nav-number">4.6.</span> <span class="nav-text">VI编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正常模式"><span class="nav-number">4.6.1.</span> <span class="nav-text">正常模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">4.6.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">4.6.3.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视模式"><span class="nav-number">4.6.4.</span> <span class="nav-text">可视模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">5.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户管理命令"><span class="nav-number">5.1.</span> <span class="nav-text">用户管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组管理命令"><span class="nav-number">5.2.</span> <span class="nav-text">组管理命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户切换"><span class="nav-number">5.3.</span> <span class="nav-text">用户切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户（组）配置文件"><span class="nav-number">5.4.</span> <span class="nav-text">用户（组）配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件权限"><span class="nav-number">5.5.</span> <span class="nav-text">查看文件权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件权限"><span class="nav-number">5.6.</span> <span class="nav-text">修改文件权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络管理"><span class="nav-number">6.</span> <span class="nav-text">网络管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络状态查看"><span class="nav-number">6.1.</span> <span class="nav-text">网络状态查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络接口命名修改"><span class="nav-number">6.2.</span> <span class="nav-text">网络接口命名修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网络情况"><span class="nav-number">6.3.</span> <span class="nav-text">查看网络情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网关"><span class="nav-number">6.4.</span> <span class="nav-text">查看网关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络配置命令"><span class="nav-number">6.5.</span> <span class="nav-text">网络配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网关配置命令"><span class="nav-number">6.6.</span> <span class="nav-text">网关配置命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络服务管理"><span class="nav-number">6.7.</span> <span class="nav-text">网络服务管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件管理"><span class="nav-number">7.</span> <span class="nav-text">软件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Debian系列：Debian、Ubuntu、Raspbian等"><span class="nav-number">7.1.</span> <span class="nav-text">Debian系列：Debian、Ubuntu、Raspbian等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redhat系列：Redhat、CentOS、Fedora等"><span class="nav-number">7.2.</span> <span class="nav-text">Redhat系列：Redhat、CentOS、Fedora等</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rpm包格式"><span class="nav-number">7.2.1.</span> <span class="nav-text">rpm包格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rpm命令"><span class="nav-number">7.2.2.</span> <span class="nav-text">rpm命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yum包管理器"><span class="nav-number">7.2.3.</span> <span class="nav-text">yum包管理器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源代码安装"><span class="nav-number">7.3.</span> <span class="nav-text">源代码安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#升级内核"><span class="nav-number">7.4.</span> <span class="nav-text">升级内核</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程管理"><span class="nav-number">8.</span> <span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看进程"><span class="nav-number">8.1.</span> <span class="nav-text">查看进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程优先级调整"><span class="nav-number">8.2.</span> <span class="nav-text">进程优先级调整</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信"><span class="nav-number">8.3.</span> <span class="nav-text">进程间通信</span></a></li></ol></li></ol></div>
             
 
           </div>

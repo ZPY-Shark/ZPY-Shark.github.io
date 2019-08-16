@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Shark&#39;s Blog">
 <meta property="og:description" content="Linux基础 Shell脚本编程知识学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-13T14:06:39.662Z">
+<meta property="og:updated_time" content="2019-08-16T14:23:44.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell脚本学习">
 <meta name="twitter:description" content="Linux基础 Shell脚本编程知识学习。">
@@ -355,7 +355,8 @@
 <li>#号开头的注释</li>
 <li>chmod u+x filename可执行权限</li>
 </ul>
-<h2 id="Shell脚本的执行方式"><a href="#Shell脚本的执行方式" class="headerlink" title="Shell脚本的执行方式"></a>Shell脚本的执行方式</h2><ul>
+<h2 id="Shell脚本的执行方式"><a href="#Shell脚本的执行方式" class="headerlink" title="Shell脚本的执行方式"></a>Shell脚本的执行方式</h2><hr>
+<ul>
 <li><p>bash a.sh</p>
 <ul>
 <li>可以没有可执行权限</li>
@@ -385,9 +386,89 @@
 <blockquote>
 <p>这两种方式执行不会产生新的子进程，会对当前环境造成影响</p>
 </blockquote>
-<h2 id="内建命令和外建命令的区别"><a href="#内建命令和外建命令的区别" class="headerlink" title="内建命令和外建命令的区别"></a>内建命令和外建命令的区别</h2><ul>
+<h2 id="内建命令和外建命令的区别"><a href="#内建命令和外建命令的区别" class="headerlink" title="内建命令和外建命令的区别"></a>内建命令和外建命令的区别</h2><hr>
+<ul>
 <li>内建命令不需要创建子进程</li>
 <li>内建命令对当前Shell生效</li>
+</ul>
+<h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><hr>
+<ul>
+<li>管道和信号一样，是进程间通信的一种方式</li>
+<li>匿名管道(管道符)是Shell编程经常用到的通信工具</li>
+<li>管道符是“|”，将前一个命令的结果传递给后面的命令<ul>
+<li>ps | cat</li>
+<li>ehco 123 | ps</li>
+</ul>
+</li>
+</ul>
+<h2 id="重定向"><a href="#重定向" class="headerlink" title="重定向"></a>重定向</h2><hr>
+<ul>
+<li><p>一个进程默认会打开 <strong>标准输入、标准输出、错误输出</strong> 三个文件描述符</p>
+</li>
+<li><p>输入重定向符号 ‘&lt;’</p>
+<ul>
+<li>read var &lt; /path/file</li>
+</ul>
+</li>
+<li><p>输出重定向符号</p>
+<ul>
+<li>‘&gt;’ ：清空文件内容后再输入内容</li>
+<li>‘&gt;&gt;’：不清空文件内容，在下一行追加输入内容</li>
+<li>‘2&gt;’：对文件描述符2的操作，即前面命令产生的错误输入到文件中，错误重定向</li>
+<li>‘&amp;&gt;’：无论输出什么信息全部输入到文件中</li>
+</ul>
+</li>
+<li><p>输入和输出重定向组合使用</p>
+</li>
+</ul>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><hr>
+<h3 id="变量的定义"><a href="#变量的定义" class="headerlink" title="变量的定义"></a>变量的定义</h3><ul>
+<li>变量名的命名规则<ul>
+<li>字母、数组、下划线</li>
+<li>不能以数字开头</li>
+</ul>
+</li>
+</ul>
+<h3 id="变量的赋值"><a href="#变量的赋值" class="headerlink" title="变量的赋值"></a>变量的赋值</h3><p>Shell中的变量为弱类型的变量，不区分类型</p>
+<ul>
+<li><p>为变量赋值的过程称为 <strong>变量替换</strong></p>
+<ul>
+<li><p>变量名=变量值</p>
+<p>a=123</p>
+</li>
+<li><p>使用let为变量赋值</p>
+<p>let a=10+2</p>
+</li>
+<li><p>将命令赋值给变量</p>
+<p>l=ls</p>
+</li>
+<li><p>将命令结果赋值给变量，使用$()或者``</p>
+<p>letc=$(ls -l /etc)</p>
+</li>
+<li><p>变量值有空格等特殊字符可以包含在””或’’中，当字符串内包含双引号时，可以用单引号；当字符串内包含单引号时，可以用双引号</p>
+</li>
+</ul>
+<blockquote>
+<p>等号两边不得有空格，变量名、变量值中不得包含空格</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="变量的引用"><a href="#变量的引用" class="headerlink" title="变量的引用"></a>变量的引用</h3><ul>
+<li>${变量名} 称作 对变量的引用</li>
+<li>echo ${变量名} 查看变量的值</li>
+<li>${变量名} 在部分情况下可以省略为$变量名</li>
+</ul>
+<h3 id="变量的作用范围"><a href="#变量的作用范围" class="headerlink" title="变量的作用范围"></a>变量的作用范围</h3><ul>
+<li><p>变量的默认作用范围</p>
+<p>默认只对当前Shell进程有效</p>
+</li>
+<li><p>变量的导出</p>
+<p>export</p>
+<p>在定义时加上export关键字，可以在子进程中使用</p>
+</li>
+<li><p>变量的删除</p>
+<p>unset</p>
+</li>
 </ul>
 
       
@@ -565,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Shell"><span class="nav-number">1.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的启动过程"><span class="nav-number">2.</span> <span class="nav-text">Linux的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的格式"><span class="nav-number">3.</span> <span class="nav-text">Shell脚本的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的执行方式"><span class="nav-number">4.</span> <span class="nav-text">Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内建命令和外建命令的区别"><span class="nav-number">5.</span> <span class="nav-text">内建命令和外建命令的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Shell"><span class="nav-number">1.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的启动过程"><span class="nav-number">2.</span> <span class="nav-text">Linux的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的格式"><span class="nav-number">3.</span> <span class="nav-text">Shell脚本的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的执行方式"><span class="nav-number">4.</span> <span class="nav-text">Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内建命令和外建命令的区别"><span class="nav-number">5.</span> <span class="nav-text">内建命令和外建命令的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道"><span class="nav-number">6.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向"><span class="nav-number">7.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">8.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的定义"><span class="nav-number">8.1.</span> <span class="nav-text">变量的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的赋值"><span class="nav-number">8.2.</span> <span class="nav-text">变量的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的引用"><span class="nav-number">8.3.</span> <span class="nav-text">变量的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的作用范围"><span class="nav-number">8.4.</span> <span class="nav-text">变量的作用范围</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Shark&#39;s Blog">
 <meta property="og:description" content="Linux基础 Shell脚本编程知识学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-16T14:23:44.087Z">
+<meta property="og:updated_time" content="2019-08-17T07:35:28.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell脚本学习">
 <meta name="twitter:description" content="Linux基础 Shell脚本编程知识学习。">
@@ -443,7 +443,7 @@
 <p>l=ls</p>
 </li>
 <li><p>将命令结果赋值给变量，使用$()或者``</p>
-<p>letc=$(ls -l /etc)</p>
+<p>let c=$(ls -l /etc)</p>
 </li>
 <li><p>变量值有空格等特殊字符可以包含在””或’’中，当字符串内包含双引号时，可以用单引号；当字符串内包含单引号时，可以用双引号</p>
 </li>
@@ -468,6 +468,202 @@
 </li>
 <li><p>变量的删除</p>
 <p>unset</p>
+</li>
+</ul>
+<h3 id="系统环境变量"><a href="#系统环境变量" class="headerlink" title="系统环境变量"></a>系统环境变量</h3><ul>
+<li><p>环境变量</p>
+<p>每个Shell打开都可以获得到的变量</p>
+<ul>
+<li><p>set 和 env命令</p>
+<p>– env命令查看所有 <strong>环境变量</strong></p>
+<p>使用 ‘echo $变量名’ 可以查看变量值</p>
+<p>PATH变量是命令的搜索路径</p>
+<p>向PATH路径添加新路径时使用 PATH=$PATH:/root</p>
+<p>当前定义的PATH环境变量都进行了export导出，所以对当前终端和自己的子Shell生效，对其他Shell不生效</p>
+<p>$PS1，终端显示内容</p>
+<p>– set命令查看所有 <strong>环境变量、预定义变量、位置变量</strong></p>
+</li>
+<li><p>预定义变量</p>
+<ul>
+<li><p>$?</p>
+<p>表示上一条命令是否产生了错误，用以确认上条命令是否执行成功</p>
+</li>
+<li><p>$$</p>
+<p>表示当前进程的PID</p>
+</li>
+<li><p>$0</p>
+<p>表示当前进程的名称</p>
+</li>
+</ul>
+</li>
+<li><p>系统定义好的位置变量</p>
+<p>位置变量即执行脚本时所带的参数</p>
+<p>$1 $2 … $9 ${10} …</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//脚本文件示例</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">pos0=<span class="variable">$0</span></span><br><span class="line">pos1=<span class="variable">$1</span></span><br><span class="line">pos2=<span class="variable">$2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#第0个参数即执行脚本的命令</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$pos0</span></span><br><span class="line"><span class="comment">#第n个参数即所带的第一个参数</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$pos1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$pos2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#若相应位置不带参数，则参数内容为空值</span></span><br></pre></td></tr></table></figure>
+
+<p>当参数为空值时，处理参数可能出现问题</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//小技巧</span><br><span class="line"><span class="comment"># 在变量后下_，当第二个参数为空时，读到的是一个_，这样可以规避掉参数为空值的问题</span></span><br><span class="line"><span class="comment"># 但是对已赋值的参数还会多带一个_</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;2&#125;</span>_</span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数替换方法</span></span><br><span class="line"><span class="comment"># 若$2位置没有赋值，则使用_赋值，若$2已赋值，则使用该值</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;2-_&#125;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="环境变量的配置文件"><a href="#环境变量的配置文件" class="headerlink" title="环境变量的配置文件"></a>环境变量的配置文件</h3><ul>
+<li>/etc/profile</li>
+<li>/etc/bashrc</li>
+<li>~/.bash_profile</li>
+<li>~/.bashrc</li>
+<li>/ect/profile.d/ <strong><em>（目录）</em></strong></li>
+</ul>
+<blockquote>
+<p>/etc下的配置文件中环境变量对所有用户有效，~/目录下放置特定用户独有的环境变量</p>
+</blockquote>
+<ul>
+<li><p>login shell </p>
+<blockquote>
+<p>su -username 为login shell</p>
+</blockquote>
+<p>在用户登录时，四个文件都会执行，加载配置文件比较齐全</p>
+<ul>
+<li><p>执行顺序</p>
+<ul>
+<li>/etc/profile</li>
+<li>.bash_profile</li>
+<li>.bashrc</li>
+<li>/etc/bashrc<blockquote>
+<p>需要注意执行顺序，避免后面定义的同名变量覆盖掉前面定义的变量</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>nologin shell</p>
+<blockquote>
+<p>su username 为no login shell</p>
+</blockquote>
+<p>仅bashrc文件会被执行   </p>
+<blockquote>
+<p>注意nologin shell可能加载环境变量不完全，所以建议使用login shell</p>
+</blockquote>
+<blockquote>
+<p>配置文件是每次在用户打开shell终端的时候才会去运行，所以新添加的用户环境变量不会立即生效 </p>
+</blockquote>
+<ul>
+<li>让新添加的环境变量生效的方法<ul>
+<li>退出终端，重新打开</li>
+<li>使用source执行使其生效，即source /etc/bashrc</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><hr>
+<ul>
+<li><p>定义数组</p>
+<p>IPTS=( 10.0.0.1 10.0.0.2 10.0.0.3 )</p>
+<blockquote>
+<p>数组元素使用空格分隔</p>
+</blockquote>
+</li>
+<li><p>显示数组的所有元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;IPTS[@]&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显示数组的元素个数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;#IPTS[@]&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>显示数组的第一个元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;IPTS[0]&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="转义、引用、特殊字符"><a href="#转义、引用、特殊字符" class="headerlink" title="转义、引用、特殊字符"></a>转义、引用、特殊字符</h2><hr>
+<ul>
+<li><p>特殊字符</p>
+<p>一个字符不仅有字面意义，还具有元意（meta-meaning）</p>
+<ul>
+<li><p>‘#’ 注释</p>
+</li>
+<li><p>‘;’ 分号，分隔两行命令</p>
+</li>
+<li><p>‘\’ 转义符号，</p>
+<ul>
+<li><p>单个字符前的转义符号</p>
+<p>\n \r \t 单个字母的转义</p>
+<p>$ &quot; 单个非字母的转义</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>引用符号</p>
+<p>常用的引用符号</p>
+<ul>
+<li><p>“ 双引号</p>
+<p>当双引号内包含$变量时，为完全引用，显示的是变量的值</p>
+</li>
+<li><p>‘ 单引号</p>
+<p>当单引号内包含$变量是，为不完全引用，显示的是$变量字符</p>
+</li>
+<li><p>` 反引号</p>
+<p>反引号内包含执行命令</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><hr>
+<ul>
+<li><p>赋值运算符（=）</p>
+<p>用于算数赋值和字符串赋值’</p>
+<p>使用unset取消为变量的赋值</p>
+<p>=除了作为赋值运算符还可以作为测试操作符</p>
+</li>
+<li><p>算数运算符</p>
+<ul>
+<li>基本算数运算符（+ - * / ** %）</li>
+<li>使用expr命令进行运算，只能支持整数运算，不支持浮点数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//注意符号与数字必须空格隔开 </span><br><span class="line">expr 4 + 5</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>数字常量</p>
+<ul>
+<li>let “变量名=变量值”</li>
+<li>变量值使用0开头的八进制</li>
+<li>变量值使用0x开头的十六进制</li>
+</ul>
+</li>
+<li><p>双圆括号</p>
+<p>双圆括号是let命令的简化</p>
+<ul>
+<li>(( a=10 ))</li>
+<li>(( a++ ))</li>
+<li>echo $((10+20))</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>正常的变量赋值默认为字符串赋值，若需要数字赋值则需要使用 <strong>expr / let / 双圆括号</strong> 实现</p>
+</blockquote>
+<h2 id="特殊符号大全"><a href="#特殊符号大全" class="headerlink" title="特殊符号大全"></a>特殊符号大全</h2><hr>
+<ul>
+<li><p>引号</p>
+<ul>
+<li>‘ 完全引用</li>
+<li>“” 不完全引用</li>
+<li>` 执行命令</li>
+</ul>
+</li>
+<li><p>括号</p>
+<ul>
+<li><p>圆括号 <strong>() (()) $()</strong></p>
+<ul>
+<li>单独使用圆括号会产生一个子shell：(xyz=123)</li>
+<li>数组初始化ips=( ip1 ip2 ip3 )</li>
+</ul>
+</li>
+<li><p>方括号 <strong>[] [ [ ]]</strong></p>
+</li>
+</ul>
 </li>
 </ul>
 
@@ -646,7 +842,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Shell"><span class="nav-number">1.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的启动过程"><span class="nav-number">2.</span> <span class="nav-text">Linux的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的格式"><span class="nav-number">3.</span> <span class="nav-text">Shell脚本的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的执行方式"><span class="nav-number">4.</span> <span class="nav-text">Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内建命令和外建命令的区别"><span class="nav-number">5.</span> <span class="nav-text">内建命令和外建命令的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道"><span class="nav-number">6.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向"><span class="nav-number">7.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">8.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的定义"><span class="nav-number">8.1.</span> <span class="nav-text">变量的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的赋值"><span class="nav-number">8.2.</span> <span class="nav-text">变量的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的引用"><span class="nav-number">8.3.</span> <span class="nav-text">变量的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的作用范围"><span class="nav-number">8.4.</span> <span class="nav-text">变量的作用范围</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Shell"><span class="nav-number">1.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的启动过程"><span class="nav-number">2.</span> <span class="nav-text">Linux的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的格式"><span class="nav-number">3.</span> <span class="nav-text">Shell脚本的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的执行方式"><span class="nav-number">4.</span> <span class="nav-text">Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内建命令和外建命令的区别"><span class="nav-number">5.</span> <span class="nav-text">内建命令和外建命令的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道"><span class="nav-number">6.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向"><span class="nav-number">7.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">8.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的定义"><span class="nav-number">8.1.</span> <span class="nav-text">变量的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的赋值"><span class="nav-number">8.2.</span> <span class="nav-text">变量的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的引用"><span class="nav-number">8.3.</span> <span class="nav-text">变量的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的作用范围"><span class="nav-number">8.4.</span> <span class="nav-text">变量的作用范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统环境变量"><span class="nav-number">8.5.</span> <span class="nav-text">系统环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量的配置文件"><span class="nav-number">8.6.</span> <span class="nav-text">环境变量的配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">9.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转义、引用、特殊字符"><span class="nav-number">10.</span> <span class="nav-text">转义、引用、特殊字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">11.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊符号大全"><span class="nav-number">12.</span> <span class="nav-text">特殊符号大全</span></a></li></ol></div>
             
 
           </div>

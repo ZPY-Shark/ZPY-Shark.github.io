@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构与算法,数据结构,双链表,双向链表,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="基本数据结构-双向链表的基本代码即相关操作的实现，另外还总结了一些注意事项。">
+<meta name="keywords" content="数据结构与算法,数据结构,双链表,双向链表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构-双向链表-代码练习">
+<meta property="og:url" content="http://yoursite.com/source/数据结构与算法/[数据结构]-双向链表-代码练习/index.html">
+<meta property="og:site_name" content="Shark&#39;s Blog">
+<meta property="og:description" content="基本数据结构-双向链表的基本代码即相关操作的实现，另外还总结了一些注意事项。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-21T12:57:31.917Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构-双向链表-代码练习">
+<meta name="twitter:description" content="基本数据结构-双向链表的基本代码即相关操作的实现，另外还总结了一些注意事项。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/source/数据结构与算法/[数据结构]-双向链表-代码练习/">
+
+
+
+
+
+  <title>数据结构-双向链表-代码练习 | Shark's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Shark's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">相信一点一滴的积累！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/source/数据结构与算法/[数据结构]-双向链表-代码练习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ZPY-Shark">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Shark's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构-双向链表-代码练习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-21T20:06:32+08:00">
+                2019-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  基本数据结构-双向链表的基本代码即相关操作的实现，另外还总结了一些注意事项。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h1><h2 id="双链表基本操作"><a href="#双链表基本操作" class="headerlink" title="双链表基本操作"></a>双链表基本操作</h2><hr>
+<h3 id="结点数据结构"><a href="#结点数据结构" class="headerlink" title="结点数据结构"></a>结点数据结构</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//结点定义</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">next</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">prev</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> <span class="title">Node_t</span>;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建一个链表"><a href="#创建一个链表" class="headerlink" title="创建一个链表"></a>创建一个链表</h3><ul>
+<li>创建一个单链表，返回头结点指针<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Node_t* <span class="title">CreateDoubleLinkedList</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\r\nCreate a new double Linked List !\r\n"</span>);</span><br><span class="line">    Node_t* head = (Node_t*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node_t));</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line">    head-&gt;data = <span class="number">0</span>;</span><br><span class="line">    head-&gt;next = head-&gt;prev = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="链表的插入"><a href="#链表的插入" class="headerlink" title="链表的插入"></a>链表的插入</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 插入节点时需要注意插入处三个节点的指针关系需要改变</span><br><span class="line"> * </span><br><span class="line"> * 1. 新节点的前后指针 </span><br><span class="line"> * - 前驱指针需要指向前一个节点</span><br><span class="line"> * - 后继纸质需要指向后一个节点</span><br><span class="line"> * </span><br><span class="line"> * 2. 新节点前一个节点的后继指针</span><br><span class="line"> * - 前一个节点的后继指针需要指向新节点</span><br><span class="line"> * </span><br><span class="line"> * 3. 新节点后一个节点的前驱指针</span><br><span class="line"> * - 后一个节点的后继指针需要指向新节点</span><br><span class="line"> * </span><br><span class="line"> * note:当新节点的前驱后继指针已绑定后，可以直接访问到前驱节点和后继节点，所以可以先绑定新节点的指针关系，再处理前后节点的指针</span><br><span class="line"> * </span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<h4 id="在头部插入一个结点"><a href="#在头部插入一个结点" class="headerlink" title="在头部插入一个结点"></a>在头部插入一个结点</h4><ul>
+<li>在一个链表的头部插入一个结点<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在头部插入一个节点</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertNodeAtHead</span><span class="params">(Node_t* head, <span class="keyword">int</span> data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\r\nInsert Node [%d] At Head\r\n"</span>,data);</span><br><span class="line"></span><br><span class="line">    Node_t* new_node = (Node_t*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node_t));</span><br><span class="line">    <span class="keyword">if</span>(new_node == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">    new_node-&gt;data = data;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//新节点的前后指针赋值</span></span><br><span class="line">    new_node-&gt;next = head-&gt;next;</span><br><span class="line">    new_node-&gt;prev = head;</span><br><span class="line">    <span class="comment">//新节点后一个节点的前驱指针</span></span><br><span class="line">    new_node-&gt;next-&gt;prev = new_node;</span><br><span class="line">    <span class="comment">//头节点的指针</span></span><br><span class="line">    head-&gt;next = new_node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>插入操作时间复杂度为O(1)</p>
+<h4 id="在尾部插入一个结点"><a href="#在尾部插入一个结点" class="headerlink" title="在尾部插入一个结点"></a>在尾部插入一个结点</h4><ul>
+<li>在一个链表的尾部插入一个结点<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在尾部插入一个节点</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertNodeAtTail</span><span class="params">(Node_t* head, <span class="keyword">int</span> data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\r\nInsert Node [%d] At Tail\r\n"</span>,data);</span><br><span class="line"></span><br><span class="line">    Node_t* new_node = (Node_t*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node_t));</span><br><span class="line">    <span class="keyword">if</span>(new_node == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">    Node_t* tail_prev = head;</span><br><span class="line">    <span class="keyword">while</span>(tail_prev-&gt;next != <span class="literal">NULL</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        tail_prev = tail_prev-&gt;next;</span><br><span class="line">    &#125;    </span><br><span class="line"></span><br><span class="line">    new_node-&gt;data = data;</span><br><span class="line">    new_node-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    new_node-&gt;prev = tail_prev;</span><br><span class="line"></span><br><span class="line">    tail_prev-&gt;next = new_node;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>只插入时间复杂度为O(1)，但遍历链表找到尾结点时间复杂度为O(N)</p>
+<h4 id="在指定位置插入一个结点"><a href="#在指定位置插入一个结点" class="headerlink" title="在指定位置插入一个结点"></a>在指定位置插入一个结点</h4><ul>
+<li>在一个链表的指定位置插入一个结点，位置从0开始<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    根据索引查找这个位置的结点</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">Node_t* <span class="title">FindNodeAtIndex</span><span class="params">(Node_t* head, <span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    Node_t* p = head-&gt;next;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i=index;</span><br><span class="line">    <span class="keyword">while</span>(i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(p == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">        i--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Find the index[%d] Node data[%d] \r\n"</span>,index,p-&gt;data);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    根据索引查找这个位置的前一个结点</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">Node_t* <span class="title">FindNodeAtIndexBefore</span><span class="params">(Node_t* head, <span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">    Node_t* p = head;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i = index;</span><br><span class="line">    <span class="keyword">while</span>(i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;next == <span class="literal">NULL</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        </span><br><span class="line">        p = p-&gt;next;</span><br><span class="line">        i--;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Find the index[%d] Node data[%d] \r\n"</span>,index,p-&gt;next-&gt;data);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 在指定索引处插入一个节点</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertNodeAtIndex</span><span class="params">(Node_t* head, <span class="keyword">int</span> index, <span class="keyword">int</span> data)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\r\nInsert Node [%d] At Index[%d]\r\n"</span>,data,index);</span><br><span class="line">    </span><br><span class="line">    Node_t* new_node = (Node_t*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node_t));</span><br><span class="line">    <span class="keyword">if</span>(new_node == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        由于是双向链表，可以方便的找到前驱结点和后继结点</span></span><br><span class="line"><span class="comment">        找到当前位置结点和当前位置的前一个结点都可以插入        </span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//若找到的是index位置的结点，那么在前面进行插入</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在前面进行插入时，</span></span><br><span class="line"><span class="comment">     * 先将新结点的前驱指针指向当前结点的前驱结点</span></span><br><span class="line"><span class="comment">     * 再将新结点的后继指针指向当前结点</span></span><br><span class="line"><span class="comment">     * 以上两步已经完成了前驱和后继结点的链接，可以找到前驱和后继结点</span></span><br><span class="line"><span class="comment">     * 然后将新结点的前驱结点的后继指针指向新结点</span></span><br><span class="line"><span class="comment">     * 最后将新结点后继结点的前驱指针指向新结点</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 1</span></span><br><span class="line">    Node_t* p_index = FindNodeAtIndex(head,index);</span><br><span class="line">    <span class="keyword">if</span>(p_index == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">    new_node-&gt;data = data;</span><br><span class="line">    new_node-&gt;next = p_index;</span><br><span class="line">    new_node-&gt;prev = p_index-&gt;prev;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//注意，在后面插入时要判断该结点是否为最后一个结点</span></span><br><span class="line">    <span class="keyword">if</span>(new_node-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        new_node-&gt;next-&gt;prev = new_node;</span><br><span class="line">    new_node-&gt;prev-&gt;next = new_node;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    <span class="comment">//若找到的是index位置的前驱结点，那么在后面进行插入 </span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在后面进行插入时，</span></span><br><span class="line"><span class="comment">     * 先将新结点的前驱指针指向当前结点</span></span><br><span class="line"><span class="comment">     * 再将新结点的后继指针指向当前结点的后继结点</span></span><br><span class="line"><span class="comment">     * 以上两步已经完成了前驱和后继结点的链接，可以找到前驱和后继结点</span></span><br><span class="line"><span class="comment">     * 然后将新结点前驱结点的后继指针指向新结点</span></span><br><span class="line"><span class="comment">     * 最后将新结点后继结点的前驱指针指向新结点</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    Node_t* p_index_before = FindNodeAtIndexBefore(head,index);</span><br><span class="line">    <span class="keyword">if</span>(p_index_before == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">    new_node-&gt;data = data;</span><br><span class="line">    new_node-&gt;next = p_index_before-&gt;next;</span><br><span class="line">    new_node-&gt;prev = p_index_before;</span><br><span class="line"></span><br><span class="line">    p_index_before-&gt;next = new_node;</span><br><span class="line">    new_node-&gt;next-&gt;prev = new_node;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>遍历链表找到index前一个节点位置和index位置的时间复杂度为O(N)，插入操作时间复杂度为O(1)</p>
+<h3 id="链表的删除"><a href="#链表的删除" class="headerlink" title="链表的删除"></a>链表的删除</h3><h4 id="删除链表指定位置的一个结点"><a href="#删除链表指定位置的一个结点" class="headerlink" title="删除链表指定位置的一个结点"></a>删除链表指定位置的一个结点</h4><ul>
+<li>删除index位置的一个结点<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 删除节点时注意删除处的前后节点指针关系发生改变</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 0. 保存该结点指针</span></span><br><span class="line"><span class="comment"> * 1. 节点前驱节点的后继指针指向节点后继节点</span></span><br><span class="line"><span class="comment"> * 2. 节点后继节点的前驱指针指向节点前驱节点</span></span><br><span class="line"><span class="comment"> * 3. 然后释放该节点</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * note:还需要注意尾结点，没有后继节点</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteNodeAtIndex</span><span class="params">(Node_t* head, <span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\r\nDelete Node At Index[%d]\r\n"</span>,index);</span><br><span class="line"></span><br><span class="line">    Node_t* p_index = FindNodeAtIndex(head,index);</span><br><span class="line">    <span class="keyword">if</span>(p_index == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    p_index-&gt;prev-&gt;next = p_index-&gt;next;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//注意尾结点没有后继节点</span></span><br><span class="line">    <span class="keyword">if</span>(p_index-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p_index-&gt;next-&gt;prev = p_index-&gt;prev;        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(p_index);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>仅删除操作时间复杂度为O(1)，查找index结点时间复杂度为O(N)</p>
+<h4 id="删除整个链表"><a href="#删除整个链表" class="headerlink" title="删除整个链表"></a>删除整个链表</h4><ul>
+<li>删除链表所有结点<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteAllNode</span><span class="params">(Node_t* head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    assert(head != <span class="literal">NULL</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\r\nDelete All Node\r\n"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (head-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        DeleteNodeAtIndex(head,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>这里没有删除头结点，删除整个链表的时间复杂度为O(N)</p>
+<h2 id="注意点总结"><a href="#注意点总结" class="headerlink" title="注意点总结"></a>注意点总结</h2><hr>
+<ul>
+<li>双链表具有一个前驱指针和后继指针，所以向前查找和向后查找都很方便</li>
+<li>注意最后一个结点问题</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构与算法/" rel="tag"># 数据结构与算法</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/双链表/" rel="tag"># 双链表</a>
+          
+            <a href="/tags/双向链表/" rel="tag"># 双向链表</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/source/嵌入式/ARM/ARM7与CortexM体系对比/" rel="next" title="ARM7与CortexM体系对比">
+                <i class="fa fa-chevron-left"></i> ARM7与CortexM体系对比
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="ZPY-Shark">
+            
+              <p class="site-author-name" itemprop="name">ZPY-Shark</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#双向链表"><span class="nav-number">1.</span> <span class="nav-text">双向链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#双链表基本操作"><span class="nav-number">1.1.</span> <span class="nav-text">双链表基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结点数据结构"><span class="nav-number">1.1.1.</span> <span class="nav-text">结点数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个链表"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建一个链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表的插入"><span class="nav-number">1.1.3.</span> <span class="nav-text">链表的插入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在头部插入一个结点"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">在头部插入一个结点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在尾部插入一个结点"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">在尾部插入一个结点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在指定位置插入一个结点"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">在指定位置插入一个结点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表的删除"><span class="nav-number">1.1.4.</span> <span class="nav-text">链表的删除</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#删除链表指定位置的一个结点"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">删除链表指定位置的一个结点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除整个链表"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">删除整个链表</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意点总结"><span class="nav-number">1.2.</span> <span class="nav-text">注意点总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZPY-Shark</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

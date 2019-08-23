@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Shark&#39;s Blog">
 <meta property="og:description" content="Linux基础 Shell脚本编程知识学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-18T01:23:05.954Z">
+<meta property="og:updated_time" content="2019-08-23T13:54:19.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell脚本学习">
 <meta name="twitter:description" content="Linux基础 Shell脚本编程知识学习。">
@@ -734,7 +734,95 @@
 </ul>
 </li>
 </ul>
+<h2 id="测试与判断"><a href="#测试与判断" class="headerlink" title="测试与判断"></a>测试与判断</h2><hr>
+<h3 id="退出与退出状态"><a href="#退出与退出状态" class="headerlink" title="退出与退出状态"></a>退出与退出状态</h3><ul>
+<li>退出程序命令<ul>
+<li>exit</li>
+<li>exit 10 返回10给shell，返回值非0，表示不正常退出</li>
+<li>$?用来判断当前shell前一个进程是否正常退出</li>
+</ul>
+</li>
+</ul>
+<h3 id="测试命令test"><a href="#测试命令test" class="headerlink" title="测试命令test"></a>测试命令test</h3><blockquote>
+<p>在Shell脚本中，0表示真(True)，非0表示假(False)</p>
+<ul>
+<li>test命令用于检查文件或者比较值，可以做以下测试<ul>
+<li>文件测试</li>
+<li>整数比较测试</li>
+<li>字符串测试</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>test 测试语句可以简化为‘[]’方括号符号</li>
+<li>方括号还有扩展写法 双方括号 ‘[ [ ] ]’，支持&amp;&amp;，||，&gt;，&lt;</li>
+</ul>
+<h3 id="使用if-then语句"><a href="#使用if-then语句" class="headerlink" title="使用if-then语句"></a>使用if-then语句</h3><ul>
+<li><p>基本用法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [ 测试条件成立 ] 或命令返回值为0</span><br><span class="line">then 执行相应的命令</span><br><span class="line">fi 结束</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>注意：if 与方括号以及方括号与内容间必须有空格</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="使用if-then-else语句"><a href="#使用if-then-else语句" class="headerlink" title="使用if-then-else语句"></a>使用if-then-else语句</h3><ul>
+<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if [ 测试条件成立 ]</span><br><span class="line">then 执行相应命令</span><br><span class="line">else 测试条件不成立时，执行相应命令</span><br><span class="line">fi 结束</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="使用if-then-elif-then-else语句"><a href="#使用if-then-elif-then-else语句" class="headerlink" title="使用if-then-elif-then-else语句"></a>使用if-then-elif-then-else语句</h3><ul>
+<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if [ 测试条件1成立 ]</span><br><span class="line">then 执行相应语句</span><br><span class="line">elif [ 测试条件2成立 ]</span><br><span class="line">then 执行相应语句</span><br><span class="line">else 以上条件都不成立时，执行相应语句</span><br><span class="line">fi 结束</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="嵌套if的使用"><a href="#嵌套if的使用" class="headerlink" title="嵌套if的使用"></a>嵌套if的使用</h3><ul>
+<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if [ 测试条件成立 ]</span><br><span class="line">then 执行相应命令</span><br><span class="line">    if [ 测试条件成立 ]</span><br><span class="line">    then 执行相应命令</span><br><span class="line">    fi 结束</span><br><span class="line">fi 结束</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><hr>
+<h3 id="case语句和select语句可以构成分支"><a href="#case语句和select语句可以构成分支" class="headerlink" title="case语句和select语句可以构成分支"></a>case语句和select语句可以构成分支</h3><ul>
+<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">case "$变量" in</span><br><span class="line">  "情况1" )</span><br><span class="line">    命令...;;</span><br><span class="line">  "情况2" )</span><br><span class="line">    命令...;;</span><br><span class="line">  * ) #通配符匹配其他任何情况，与default一样</span><br><span class="line">    命令...;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><hr>
+<h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><ul>
+<li><p>基本用法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for 参数 in 列表</span><br><span class="line">do 执行的命令</span><br><span class="line">done 封闭一个循环</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行过程，将列表中的每一项赋值给参数，然后每赋值一次就执行一次命令</p>
+</li>
+</ul>
+<ul>
+<li>使用反引号或$()方式执行命令，命令的结果当做列表进行处理</li>
+</ul>
+<h3 id="使用for循环遍历变量和文本"><a href="#使用for循环遍历变量和文本" class="headerlink" title="使用for循环遍历变量和文本"></a>使用for循环遍历变量和文本</h3><ul>
+<li>列表中包含多个变量，变量用空格分隔</li>
+<li>对文本处理，要使用文本查看命令取出文本内容<ul>
+<li>默认逐行处理，如果文本出现空格会当做多行处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="basename和dirname命令"><a href="#basename和dirname命令" class="headerlink" title="basename和dirname命令"></a>basename和dirname命令</h3><ul>
+<li><p>basename命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">basename path/filename.ext 可以取出文件名，即filename.ext</span><br><span class="line">basename path/filename.ext .ext 可以取出除拓展名的文件名，即filename</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>dirname命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirname path1/path2/path3/filename 可以取出文件所在的目录，即path1/path2/path3</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash">练习：将目录下所有.mp3格式文件全部重命名为.mp4文件</span></span><br><span class="line">for filename in `ls *.mp3`</span><br><span class="line">do</span><br><span class="line">    mv $filename $(basename $filename .mp3).mp4</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h3 id="C语言风格的for循环"><a href="#C语言风格的for循环" class="headerlink" title="C语言风格的for循环"></a>C语言风格的for循环</h3><ul>
+<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for ((变量初始化;判断循环条件;变量改变))</span><br><span class="line">do 执行相应的命令</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><h2 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h2>
       
     </div>
     
@@ -914,7 +1002,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Shell"><span class="nav-number">1.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的启动过程"><span class="nav-number">2.</span> <span class="nav-text">Linux的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的格式"><span class="nav-number">3.</span> <span class="nav-text">Shell脚本的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的执行方式"><span class="nav-number">4.</span> <span class="nav-text">Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内建命令和外建命令的区别"><span class="nav-number">5.</span> <span class="nav-text">内建命令和外建命令的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道"><span class="nav-number">6.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向"><span class="nav-number">7.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">8.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的定义"><span class="nav-number">8.1.</span> <span class="nav-text">变量的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的赋值"><span class="nav-number">8.2.</span> <span class="nav-text">变量的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的引用"><span class="nav-number">8.3.</span> <span class="nav-text">变量的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的作用范围"><span class="nav-number">8.4.</span> <span class="nav-text">变量的作用范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统环境变量"><span class="nav-number">8.5.</span> <span class="nav-text">系统环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量的配置文件"><span class="nav-number">8.6.</span> <span class="nav-text">环境变量的配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">9.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转义、引用、特殊字符"><span class="nav-number">10.</span> <span class="nav-text">转义、引用、特殊字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">11.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊符号大全"><span class="nav-number">12.</span> <span class="nav-text">特殊符号大全</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Shell"><span class="nav-number">1.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的启动过程"><span class="nav-number">2.</span> <span class="nav-text">Linux的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的格式"><span class="nav-number">3.</span> <span class="nav-text">Shell脚本的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的执行方式"><span class="nav-number">4.</span> <span class="nav-text">Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内建命令和外建命令的区别"><span class="nav-number">5.</span> <span class="nav-text">内建命令和外建命令的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道"><span class="nav-number">6.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向"><span class="nav-number">7.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">8.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的定义"><span class="nav-number">8.1.</span> <span class="nav-text">变量的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的赋值"><span class="nav-number">8.2.</span> <span class="nav-text">变量的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的引用"><span class="nav-number">8.3.</span> <span class="nav-text">变量的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的作用范围"><span class="nav-number">8.4.</span> <span class="nav-text">变量的作用范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统环境变量"><span class="nav-number">8.5.</span> <span class="nav-text">系统环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量的配置文件"><span class="nav-number">8.6.</span> <span class="nav-text">环境变量的配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">9.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转义、引用、特殊字符"><span class="nav-number">10.</span> <span class="nav-text">转义、引用、特殊字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">11.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊符号大全"><span class="nav-number">12.</span> <span class="nav-text">特殊符号大全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试与判断"><span class="nav-number">13.</span> <span class="nav-text">测试与判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#退出与退出状态"><span class="nav-number">13.1.</span> <span class="nav-text">退出与退出状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试命令test"><span class="nav-number">13.2.</span> <span class="nav-text">测试命令test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-then语句"><span class="nav-number">13.3.</span> <span class="nav-text">使用if-then语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-then-else语句"><span class="nav-number">13.4.</span> <span class="nav-text">使用if-then-else语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-then-elif-then-else语句"><span class="nav-number">13.5.</span> <span class="nav-text">使用if-then-elif-then-else语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套if的使用"><span class="nav-number">13.6.</span> <span class="nav-text">嵌套if的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">14.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#case语句和select语句可以构成分支"><span class="nav-number">14.1.</span> <span class="nav-text">case语句和select语句可以构成分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">15.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环"><span class="nav-number">15.1.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用for循环遍历变量和文本"><span class="nav-number">15.2.</span> <span class="nav-text">使用for循环遍历变量和文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#basename和dirname命令"><span class="nav-number">15.3.</span> <span class="nav-text">basename和dirname命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言风格的for循环"><span class="nav-number">15.4.</span> <span class="nav-text">C语言风格的for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环"><span class="nav-number">15.5.</span> <span class="nav-text">while循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未完待续…"><span class="nav-number">16.</span> <span class="nav-text">未完待续…</span></a></li></ol></div>
             
 
           </div>

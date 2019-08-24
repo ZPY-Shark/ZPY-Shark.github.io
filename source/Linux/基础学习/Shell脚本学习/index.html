@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Shark&#39;s Blog">
 <meta property="og:description" content="Linux基础 Shell脚本编程知识学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-23T13:54:19.200Z">
+<meta property="og:updated_time" content="2019-08-24T03:05:23.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell脚本学习">
 <meta name="twitter:description" content="Linux基础 Shell脚本编程知识学习。">
@@ -567,13 +567,13 @@
 </blockquote>
 </li>
 <li><p>显示数组的所有元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;IPTS[@]&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;IPTS[@]&#125;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>显示数组的元素个数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;#IPTS[@]&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#IPTS[@]&#125;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>显示数组的第一个元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;IPTS[0]&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;IPTS[0]&#125;</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
@@ -734,6 +734,15 @@
 </ul>
 </li>
 </ul>
+<h2 id="算数比较运算符"><a href="#算数比较运算符" class="headerlink" title="算数比较运算符"></a>算数比较运算符</h2><hr>
+<ul>
+<li>-eq 等于</li>
+<li>-ne 不等于</li>
+<li>-lt 小于</li>
+<li>—le 小于或等于</li>
+<li>-gt 大于</li>
+<li>-ge 大于或等于</li>
+</ul>
 <h2 id="测试与判断"><a href="#测试与判断" class="headerlink" title="测试与判断"></a>测试与判断</h2><hr>
 <h3 id="退出与退出状态"><a href="#退出与退出状态" class="headerlink" title="退出与退出状态"></a>退出与退出状态</h3><ul>
 <li>退出程序命令<ul>
@@ -760,7 +769,7 @@
 </ul>
 <h3 id="使用if-then语句"><a href="#使用if-then语句" class="headerlink" title="使用if-then语句"></a>使用if-then语句</h3><ul>
 <li><p>基本用法</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [ 测试条件成立 ] 或命令返回值为0</span><br><span class="line">then 执行相应的命令</span><br><span class="line">fi 结束</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ 测试条件成立 ] 或命令返回值为0</span><br><span class="line"><span class="keyword">then</span> 执行相应的命令</span><br><span class="line"><span class="keyword">fi</span> 结束</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>注意：if 与方括号以及方括号与内容间必须有空格</p>
@@ -768,30 +777,30 @@
 </li>
 </ul>
 <h3 id="使用if-then-else语句"><a href="#使用if-then-else语句" class="headerlink" title="使用if-then-else语句"></a>使用if-then-else语句</h3><ul>
-<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if [ 测试条件成立 ]</span><br><span class="line">then 执行相应命令</span><br><span class="line">else 测试条件不成立时，执行相应命令</span><br><span class="line">fi 结束</span><br></pre></td></tr></table></figure>
+<li>基本用法<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ 测试条件成立 ]</span><br><span class="line"><span class="keyword">then</span> 执行相应命令</span><br><span class="line"><span class="keyword">else</span> 测试条件不成立时，执行相应命令</span><br><span class="line"><span class="keyword">fi</span> 结束</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h3 id="使用if-then-elif-then-else语句"><a href="#使用if-then-elif-then-else语句" class="headerlink" title="使用if-then-elif-then-else语句"></a>使用if-then-elif-then-else语句</h3><ul>
-<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if [ 测试条件1成立 ]</span><br><span class="line">then 执行相应语句</span><br><span class="line">elif [ 测试条件2成立 ]</span><br><span class="line">then 执行相应语句</span><br><span class="line">else 以上条件都不成立时，执行相应语句</span><br><span class="line">fi 结束</span><br></pre></td></tr></table></figure>
+<li>基本用法<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ 测试条件1成立 ]</span><br><span class="line"><span class="keyword">then</span> 执行相应语句</span><br><span class="line"><span class="keyword">elif</span> [ 测试条件2成立 ]</span><br><span class="line"><span class="keyword">then</span> 执行相应语句</span><br><span class="line"><span class="keyword">else</span> 以上条件都不成立时，执行相应语句</span><br><span class="line"><span class="keyword">fi</span> 结束</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h3 id="嵌套if的使用"><a href="#嵌套if的使用" class="headerlink" title="嵌套if的使用"></a>嵌套if的使用</h3><ul>
-<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if [ 测试条件成立 ]</span><br><span class="line">then 执行相应命令</span><br><span class="line">    if [ 测试条件成立 ]</span><br><span class="line">    then 执行相应命令</span><br><span class="line">    fi 结束</span><br><span class="line">fi 结束</span><br></pre></td></tr></table></figure>
+<li>基本用法<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ 测试条件成立 ]</span><br><span class="line"><span class="keyword">then</span> 执行相应命令</span><br><span class="line">    <span class="keyword">if</span> [ 测试条件成立 ]</span><br><span class="line">    <span class="keyword">then</span> 执行相应命令</span><br><span class="line">    <span class="keyword">fi</span> 结束</span><br><span class="line"><span class="keyword">fi</span> 结束</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><hr>
 <h3 id="case语句和select语句可以构成分支"><a href="#case语句和select语句可以构成分支" class="headerlink" title="case语句和select语句可以构成分支"></a>case语句和select语句可以构成分支</h3><ul>
-<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">case "$变量" in</span><br><span class="line">  "情况1" )</span><br><span class="line">    命令...;;</span><br><span class="line">  "情况2" )</span><br><span class="line">    命令...;;</span><br><span class="line">  * ) #通配符匹配其他任何情况，与default一样</span><br><span class="line">    命令...;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+<li>基本用法<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="string">"$变量"</span> <span class="keyword">in</span></span><br><span class="line">  <span class="string">"情况1"</span> )</span><br><span class="line">    命令...;;</span><br><span class="line">  <span class="string">"情况2"</span> )</span><br><span class="line">    命令...;;</span><br><span class="line">  * ) <span class="comment">#通配符匹配其他任何情况，与default一样</span></span><br><span class="line">    命令...;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
 <h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><hr>
 <h3 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h3><ul>
 <li><p>基本用法</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for 参数 in 列表</span><br><span class="line">do 执行的命令</span><br><span class="line">done 封闭一个循环</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> 参数 <span class="keyword">in</span> 列表</span><br><span class="line"><span class="keyword">do</span> 执行的命令</span><br><span class="line"><span class="keyword">done</span> 封闭一个循环</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>执行过程，将列表中的每一项赋值给参数，然后每赋值一次就执行一次命令</p>
 </li>
@@ -815,14 +824,124 @@
 
 </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash">练习：将目录下所有.mp3格式文件全部重命名为.mp4文件</span></span><br><span class="line">for filename in `ls *.mp3`</span><br><span class="line">do</span><br><span class="line">    mv $filename $(basename $filename .mp3).mp4</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#练习：将目录下所有.mp3格式文件全部重命名为.mp4文件</span></span><br><span class="line"><span class="keyword">for</span> filename <span class="keyword">in</span> `ls *.mp3`</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    mv <span class="variable">$filename</span> $(basename <span class="variable">$filename</span> .mp3).mp4</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="C语言风格的for循环"><a href="#C语言风格的for循环" class="headerlink" title="C语言风格的for循环"></a>C语言风格的for循环</h3><ul>
-<li>基本用法<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for ((变量初始化;判断循环条件;变量改变))</span><br><span class="line">do 执行相应的命令</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<li>基本用法<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> ((变量初始化;判断循环条件;变量改变))</span><br><span class="line"><span class="keyword">do</span> 执行相应的命令</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
-<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><h2 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h2>
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><ul>
+<li>基本用法<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="built_in">test</span> 测试是否成立</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  执行相应的指令</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="until循环"><a href="#until循环" class="headerlink" title="until循环"></a>until循环</h3><ul>
+<li>基本用法<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">until <span class="built_in">test</span> 测试条件不成立</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  执行相应的命令</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="跳出循环break-amp-continue"><a href="#跳出循环break-amp-continue" class="headerlink" title="跳出循环break&amp;continue"></a>跳出循环break&amp;continue</h3><ul>
+<li>循环可以嵌套，使用break和continue控制跳出循环</li>
+<li>break 跳出当前循环</li>
+<li>continue 跳过本次循环</li>
+</ul>
+<h3 id="使用循环处理命令行参数"><a href="#使用循环处理命令行参数" class="headerlink" title="使用循环处理命令行参数"></a>使用循环处理命令行参数</h3><ul>
+<li>命令行参数可以使用 $1 $2 … ${10} … $b 进行读取</li>
+<li>$0 表示脚本名称</li>
+<li>$* 和 $@ 代表所有位置参数，默认没有$0</li>
+<li>$# 代表位置参数的数量 </li>
+</ul>
+<h3 id="shift命令"><a href="#shift命令" class="headerlink" title="shift命令"></a>shift命令</h3><ul>
+<li><p>shift 参数左移</p>
+<p>每执行一次shift命令，就删掉一个位置参数，即参数左移</p>
+<p>例如，./a.sh a b c d</p>
+<p>执行一次shift命令，参数就变为了 a b c d</p>
+</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><hr>
+<h3 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h3><ul>
+<li><p>函数用于”包含”重复使用的命令集合</p>
+</li>
+<li><p>函数的定义</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">fname</span></span>()&#123;</span><br><span class="line">  命令</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数的执行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fname</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数作用范围的变量(局部变量)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">local</span> 变量名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数的参数</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$1</span> <span class="variable">$2</span> ... <span class="variable">$n</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以使用 return 返回</p>
+</li>
+</ul>
+<h3 id="系统函数库"><a href="#系统函数库" class="headerlink" title="系统函数库"></a>系统函数库</h3><ul>
+<li>系统自建了函数库，可以在脚本中引用<ul>
+<li>/ect/init.d/functions</li>
+</ul>
+</li>
+<li>自建函数库<ul>
+<li>使用source函数脚本文件”导入”函数</li>
+</ul>
+</li>
+</ul>
+<h2 id="脚本控制"><a href="#脚本控制" class="headerlink" title="脚本控制"></a>脚本控制</h2><hr>
+<h3 id="脚本优先级控制"><a href="#脚本优先级控制" class="headerlink" title="脚本优先级控制"></a>脚本优先级控制</h3><ul>
+<li><p>使用nice和renice调整脚本优先级</p>
+</li>
+<li><p>避免出现”不可控”的死循环</p>
+<ul>
+<li>死循环会导致CPU占用过高</li>
+<li>死循环会导致死机</li>
+</ul>
+</li>
+<li><p>ulimit -a 查看当前终端使用限制</p>
+</li>
+<li><p>fork炸弹</p>
+</li>
+</ul>
+<h3 id="捕获信号"><a href="#捕获信号" class="headerlink" title="捕获信号"></a>捕获信号</h3><ul>
+<li>kill 默认会发送信号15给应用程序</li>
+<li>ctrl+c 发送信号2给应用程序</li>
+<li>信号9不可阻塞、不可捕获</li>
+<li>trap命令进行信号捕获</li>
+</ul>
+<h2 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h2><hr>
+<p>计划任务：让计算机在指定的时间运行任务</p>
+<h3 id="一次性计划任务"><a href="#一次性计划任务" class="headerlink" title="一次性计划任务"></a>一次性计划任务</h3><ul>
+<li>at</li>
+<li>atq 查询一次性计划被执行情况</li>
+</ul>
+<blockquote>
+<p>注意计划任务执行命令的 搜索路径 </p>
+</blockquote>
+<blockquote>
+<p>计划任务的执行没有终端，无法进行标准输出显示 </p>
+</blockquote>
+<h3 id="周期性计划任务"><a href="#周期性计划任务" class="headerlink" title="周期性计划任务"></a>周期性计划任务</h3><ul>
+<li>cron</li>
+<li>配置方式 crontab -e</li>
+<li>查看现有计划任务 crontab -l</li>
+<li>取消当前计划任务 crontab -r</li>
+<li>配置格式<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分钟 小时 日期 月份 星期 执行的命令</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p>注意命令的路径问题</p>
+</blockquote>
+<ul>
+<li>/var/spool/cron/ 存放每个用户周期性计划的文件</li>
+</ul>
+<h3 id="计划任务加锁"><a href="#计划任务加锁" class="headerlink" title="计划任务加锁"></a>计划任务加锁</h3><ul>
+<li>如果计算机不能按照预期时间运行</li>
+<li>anacrontab 延时计划任务</li>
+<li>flock 锁文件，防止任务重复执行</li>
+</ul>
+<h2 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h2>
       
     </div>
     
@@ -1002,7 +1121,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Shell"><span class="nav-number">1.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的启动过程"><span class="nav-number">2.</span> <span class="nav-text">Linux的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的格式"><span class="nav-number">3.</span> <span class="nav-text">Shell脚本的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的执行方式"><span class="nav-number">4.</span> <span class="nav-text">Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内建命令和外建命令的区别"><span class="nav-number">5.</span> <span class="nav-text">内建命令和外建命令的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道"><span class="nav-number">6.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向"><span class="nav-number">7.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">8.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的定义"><span class="nav-number">8.1.</span> <span class="nav-text">变量的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的赋值"><span class="nav-number">8.2.</span> <span class="nav-text">变量的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的引用"><span class="nav-number">8.3.</span> <span class="nav-text">变量的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的作用范围"><span class="nav-number">8.4.</span> <span class="nav-text">变量的作用范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统环境变量"><span class="nav-number">8.5.</span> <span class="nav-text">系统环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量的配置文件"><span class="nav-number">8.6.</span> <span class="nav-text">环境变量的配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">9.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转义、引用、特殊字符"><span class="nav-number">10.</span> <span class="nav-text">转义、引用、特殊字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">11.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊符号大全"><span class="nav-number">12.</span> <span class="nav-text">特殊符号大全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试与判断"><span class="nav-number">13.</span> <span class="nav-text">测试与判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#退出与退出状态"><span class="nav-number">13.1.</span> <span class="nav-text">退出与退出状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试命令test"><span class="nav-number">13.2.</span> <span class="nav-text">测试命令test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-then语句"><span class="nav-number">13.3.</span> <span class="nav-text">使用if-then语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-then-else语句"><span class="nav-number">13.4.</span> <span class="nav-text">使用if-then-else语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-then-elif-then-else语句"><span class="nav-number">13.5.</span> <span class="nav-text">使用if-then-elif-then-else语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套if的使用"><span class="nav-number">13.6.</span> <span class="nav-text">嵌套if的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">14.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#case语句和select语句可以构成分支"><span class="nav-number">14.1.</span> <span class="nav-text">case语句和select语句可以构成分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">15.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环"><span class="nav-number">15.1.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用for循环遍历变量和文本"><span class="nav-number">15.2.</span> <span class="nav-text">使用for循环遍历变量和文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#basename和dirname命令"><span class="nav-number">15.3.</span> <span class="nav-text">basename和dirname命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言风格的for循环"><span class="nav-number">15.4.</span> <span class="nav-text">C语言风格的for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环"><span class="nav-number">15.5.</span> <span class="nav-text">while循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未完待续…"><span class="nav-number">16.</span> <span class="nav-text">未完待续…</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Shell"><span class="nav-number">1.</span> <span class="nav-text">什么是Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的启动过程"><span class="nav-number">2.</span> <span class="nav-text">Linux的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的格式"><span class="nav-number">3.</span> <span class="nav-text">Shell脚本的格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell脚本的执行方式"><span class="nav-number">4.</span> <span class="nav-text">Shell脚本的执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内建命令和外建命令的区别"><span class="nav-number">5.</span> <span class="nav-text">内建命令和外建命令的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道"><span class="nav-number">6.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向"><span class="nav-number">7.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">8.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的定义"><span class="nav-number">8.1.</span> <span class="nav-text">变量的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的赋值"><span class="nav-number">8.2.</span> <span class="nav-text">变量的赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的引用"><span class="nav-number">8.3.</span> <span class="nav-text">变量的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量的作用范围"><span class="nav-number">8.4.</span> <span class="nav-text">变量的作用范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统环境变量"><span class="nav-number">8.5.</span> <span class="nav-text">系统环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量的配置文件"><span class="nav-number">8.6.</span> <span class="nav-text">环境变量的配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">9.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转义、引用、特殊字符"><span class="nav-number">10.</span> <span class="nav-text">转义、引用、特殊字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">11.</span> <span class="nav-text">运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊符号大全"><span class="nav-number">12.</span> <span class="nav-text">特殊符号大全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算数比较运算符"><span class="nav-number">13.</span> <span class="nav-text">算数比较运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试与判断"><span class="nav-number">14.</span> <span class="nav-text">测试与判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#退出与退出状态"><span class="nav-number">14.1.</span> <span class="nav-text">退出与退出状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试命令test"><span class="nav-number">14.2.</span> <span class="nav-text">测试命令test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-then语句"><span class="nav-number">14.3.</span> <span class="nav-text">使用if-then语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-then-else语句"><span class="nav-number">14.4.</span> <span class="nav-text">使用if-then-else语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用if-then-elif-then-else语句"><span class="nav-number">14.5.</span> <span class="nav-text">使用if-then-elif-then-else语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套if的使用"><span class="nav-number">14.6.</span> <span class="nav-text">嵌套if的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支"><span class="nav-number">15.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#case语句和select语句可以构成分支"><span class="nav-number">15.1.</span> <span class="nav-text">case语句和select语句可以构成分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">16.</span> <span class="nav-text">循环</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#for循环"><span class="nav-number">16.1.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用for循环遍历变量和文本"><span class="nav-number">16.2.</span> <span class="nav-text">使用for循环遍历变量和文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#basename和dirname命令"><span class="nav-number">16.3.</span> <span class="nav-text">basename和dirname命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言风格的for循环"><span class="nav-number">16.4.</span> <span class="nav-text">C语言风格的for循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#while循环"><span class="nav-number">16.5.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#until循环"><span class="nav-number">16.6.</span> <span class="nav-text">until循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳出循环break-amp-continue"><span class="nav-number">16.7.</span> <span class="nav-text">跳出循环break&amp;continue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用循环处理命令行参数"><span class="nav-number">16.8.</span> <span class="nav-text">使用循环处理命令行参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shift命令"><span class="nav-number">16.9.</span> <span class="nav-text">shift命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">17.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义函数"><span class="nav-number">17.1.</span> <span class="nav-text">自定义函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统函数库"><span class="nav-number">17.2.</span> <span class="nav-text">系统函数库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚本控制"><span class="nav-number">18.</span> <span class="nav-text">脚本控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本优先级控制"><span class="nav-number">18.1.</span> <span class="nav-text">脚本优先级控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#捕获信号"><span class="nav-number">18.2.</span> <span class="nav-text">捕获信号</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计划任务"><span class="nav-number">19.</span> <span class="nav-text">计划任务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一次性计划任务"><span class="nav-number">19.1.</span> <span class="nav-text">一次性计划任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#周期性计划任务"><span class="nav-number">19.2.</span> <span class="nav-text">周期性计划任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计划任务加锁"><span class="nav-number">19.3.</span> <span class="nav-text">计划任务加锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未完待续…"><span class="nav-number">20.</span> <span class="nav-text">未完待续…</span></a></li></ol></div>
             
 
           </div>

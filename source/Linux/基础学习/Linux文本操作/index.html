@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据结构与算法,数据结构,数组,">
+  <meta name="keywords" content="Linux，文本操作,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="基本数据结构-数组的介绍。">
-<meta name="keywords" content="数据结构与算法,数据结构,数组">
+<meta name="description" content="Linux文本操作相关知识。">
+<meta name="keywords" content="Linux，文本操作">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构-数组">
-<meta property="og:url" content="http://yoursite.com/source/数据结构与算法/[数据结构]-数组/index.html">
+<meta property="og:title" content="Linux文本操作">
+<meta property="og:url" content="http://yoursite.com/source/Linux/基础学习/Linux文本操作/index.html">
 <meta property="og:site_name" content="Shark&#39;s Blog">
-<meta property="og:description" content="基本数据结构-数组的介绍。">
+<meta property="og:description" content="Linux文本操作相关知识。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-18T13:03:43.622Z">
+<meta property="og:updated_time" content="2019-08-31T02:50:39.164Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构-数组">
-<meta name="twitter:description" content="基本数据结构-数组的介绍。">
+<meta name="twitter:title" content="Linux文本操作">
+<meta name="twitter:description" content="Linux文本操作相关知识。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/source/数据结构与算法/[数据结构]-数组/">
+  <link rel="canonical" href="http://yoursite.com/source/Linux/基础学习/Linux文本操作/">
 
 
 
 
 
-  <title>数据结构-数组 | Shark's Blog</title>
+  <title>Linux文本操作 | Shark's Blog</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/source/数据结构与算法/[数据结构]-数组/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/source/Linux/基础学习/Linux文本操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ZPY-Shark">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据结构-数组</h1>
+          <h1 class="post-title" itemprop="name headline">Linux文本操作</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-18T20:20:01+08:00">
-                2019-07-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T09:22:42+08:00">
+                2019-08-31
               </time>
             
 
@@ -285,8 +285,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构与算法</span>
+                  <a href="/categories/Linux基础/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux基础</span>
                   </a>
                 </span>
 
@@ -309,7 +309,7 @@
 
           
               <div class="post-description">
-                  基本数据结构-数组的介绍。
+                  Linux文本操作相关知识。
               </div>
           
 
@@ -326,39 +326,69 @@
       
 
       
-        <h2 id="数组-（Array）"><a href="#数组-（Array）" class="headerlink" title="数组 （Array）"></a>数组 （Array）</h2><hr>
-<ul>
-<li>最简单、最基础的数据结构</li>
-<li>一种 <strong><em>线性表</em></strong> 数据结构</li>
-<li>一组 <strong><em>连续</em></strong> 的内存空间</li>
-<li>存储具有 <strong><em>相同类型</em></strong> 的数据</li>
+        <h2 id="正则表达式与文本搜索"><a href="#正则表达式与文本搜索" class="headerlink" title="正则表达式与文本搜索"></a>正则表达式与文本搜索</h2><hr>
+<h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><ul>
+<li>. 匹配除换行符外的任意单个字符</li>
+<li><ul>
+<li>匹配任意一个跟在它前面的字符（与通配符有区别）</li>
 </ul>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><hr>
-<ul>
-<li>具有 <strong><em>高效的 随机访问</em></strong> 性能</li>
-<li>根据下标随机访问的时间复杂度为O(1)</li>
+</li>
+<li>[] 匹配方括号中的字符类中的任意一个</li>
+<li>^ 匹配开头</li>
+<li>$ 匹配结尾</li>
+<li>\ 转义后面的特殊字符，转义时可能需要带双引号，如 “.“</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">为什么数组的下标要从0开始？</span><br><span class="line">从内存模型上看，连续的内存空间，下标 就对应 偏移</span><br><span class="line">a[k]_address = base_address + k * type_size</span><br><span class="line">便于取址访问，所以高效，随机访问</span><br></pre></td></tr></table></figure>
-
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><hr>
-<ul>
-<li>具有 <strong><em>低效的 插入和删除</em></strong> 性能</li>
+<h3 id="扩展元字符"><a href="#扩展元字符" class="headerlink" title="扩展元字符"></a>扩展元字符</h3><ul>
+<li><ul>
+<li>匹配前面的正则表达式至少出现一次</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">数组中为有序数据，在保证顺序的前提下插入数据，最好时间复杂度O(1)，最坏时间复杂度O(n)，平均时间复杂度O(n)；删除操作同理</span><br><span class="line">若不需要保证顺序，则直接插入最后，或将某一位置挪至最后，再插入这一位置，时间复杂度为O(1)；删除操作同理</span><br><span class="line"></span><br><span class="line">所以，具体的使用背景可以根据情况具体分析，采用最合适的方式</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>很多时候，并不需要死记硬背某个数据结构或算法，而是要学习背后的思想和处理技巧</p>
-</blockquote>
-<ul>
-<li>同时，数组需要注意访问越界问题</li>
+</li>
+<li>? 匹配前面的正则表达式出现零次或一次</li>
+<li>| 匹配它前面或后面的正则表达式</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数组越界在C语言中是一种未决行为，并没有规定数组访问越界时编译器应该如何处理。所以会出现莫名其妙的错误。</span><br></pre></td></tr></table></figure>
-
-<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><hr>
-<p>很多语言提供了容器类，与数组类似，但是有很多优点</p>
+<h3 id="文件的查找命令find"><a href="#文件的查找命令find" class="headerlink" title="文件的查找命令find"></a>文件的查找命令find</h3><ul>
+<li><p>find 路径 查找条件[补充条件]</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#通过文件名查找</span></span><br><span class="line">find /etc -name passwd</span><br><span class="line"></span><br><span class="line"><span class="comment">#通过正则表达式查找</span></span><br><span class="line">find /etc -regex .*wd$</span><br><span class="line"><span class="comment"># -iregex 不区分大小写</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#通过文件类型查找</span></span><br><span class="line">find /etc -<span class="built_in">type</span> f -regex .*wd</span><br><span class="line"></span><br><span class="line"><span class="comment">#也可以通过时间查找，详情见 man find</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>stat file ,查看文件详细信息</p>
+</li>
+<li><p>-exec ，find后执行相关命令</p>
+</li>
+</ul>
+<h3 id="文本内容的过滤（查找）grep"><a href="#文本内容的过滤（查找）grep" class="headerlink" title="文本内容的过滤（查找）grep"></a>文本内容的过滤（查找）grep</h3><ul>
+<li>grep 查找文本中含有关键字的一行</li>
+</ul>
+<h2 id="正则表达式的匹配方式"><a href="#正则表达式的匹配方式" class="headerlink" title="正则表达式的匹配方式"></a>正则表达式的匹配方式</h2><h2 id="行编辑器"><a href="#行编辑器" class="headerlink" title="行编辑器"></a>行编辑器</h2><hr>
 <ul>
-<li>封装了很多数组操作的细节，比如增加和删除</li>
-<li>可以动态扩容（在扩容时会比较耗时）</li>
+<li>vim 全文本编辑器，文本操作模式，交互式编辑器</li>
+<li>sed、awk 行编辑器，行操作模式，非交互式编辑器</li>
+</ul>
+<h3 id="sed-基本用法"><a href="#sed-基本用法" class="headerlink" title="sed 基本用法"></a>sed 基本用法</h3><ul>
+<li><p>sed一般用于对文本内容做替换</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">'/user1/s/user1/u1/'</span> /etc/passwd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>sed 的替换命令</p>
+<ul>
+<li><p>sed的模式空间</p>
+<p>sed的基本工作方式是</p>
+<ul>
+<li>将文件以行为单位读取到内存（模式空间）</li>
+<li>使用sed的每个脚本对该行进行操作</li>
+<li>处理完成后输出该行</li>
+</ul>
+</li>
+<li><p>替换命令s</p>
+<ul>
+<li>sed ‘s/old/new/‘ filename (原始文件不发生变化)</li>
+<li>sed -e ‘s/old/new/‘ -e ‘s/old/new/‘ filename (原始文件不发生变化)</li>
+<li>sed -i ‘s/old/new/‘ ‘s/old/new/‘ filename (写入到原始文件)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="awk-基本用法"><a href="#awk-基本用法" class="headerlink" title="awk 基本用法"></a>awk 基本用法</h3><ul>
+<li>一般用于对文本内容进行统计、按需要的格式进行输出<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#cut 命令</span></span><br><span class="line">cut -d: -f 1 /etc/passwd</span><br><span class="line"></span><br><span class="line"><span class="comment">#awk 命令</span></span><br><span class="line">awk -F: <span class="string">'/wd$/&#123;print $1&#125;'</span> /etc/passwd</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -377,11 +407,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构与算法/" rel="tag"># 数据结构与算法</a>
-          
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
-          
-            <a href="/tags/数组/" rel="tag"># 数组</a>
+            <a href="/tags/Linux，文本操作/" rel="tag"># Linux，文本操作</a>
           
         </div>
       
@@ -394,8 +420,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/source/数据结构与算法/[算法基础]-复杂度/" rel="next" title="算法基础-复杂度">
-                <i class="fa fa-chevron-left"></i> 算法基础-复杂度
+              <a href="/source/数据结构与算法/[数据结构]-循环单链表-代码练习/" rel="next" title="数据结构-循环单链表-代码练习">
+                <i class="fa fa-chevron-left"></i> 数据结构-循环单链表-代码练习
               </a>
             
           </div>
@@ -403,10 +429,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/source/数据结构与算法/[数据结构]-链表/" rel="prev" title="数据结构-链表">
-                数据结构-链表 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -540,7 +562,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组-（Array）"><span class="nav-number">1.</span> <span class="nav-text">数组 （Array）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺点"><span class="nav-number">3.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器"><span class="nav-number">4.</span> <span class="nav-text">容器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式与文本搜索"><span class="nav-number">1.</span> <span class="nav-text">正则表达式与文本搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#元字符"><span class="nav-number">1.1.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展元字符"><span class="nav-number">1.2.</span> <span class="nav-text">扩展元字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件的查找命令find"><span class="nav-number">1.3.</span> <span class="nav-text">文件的查找命令find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本内容的过滤（查找）grep"><span class="nav-number">1.4.</span> <span class="nav-text">文本内容的过滤（查找）grep</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式的匹配方式"><span class="nav-number">2.</span> <span class="nav-text">正则表达式的匹配方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行编辑器"><span class="nav-number">3.</span> <span class="nav-text">行编辑器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sed-基本用法"><span class="nav-number">3.1.</span> <span class="nav-text">sed 基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk-基本用法"><span class="nav-number">3.2.</span> <span class="nav-text">awk 基本用法</span></a></li></ol></li></ol></div>
             
 
           </div>
